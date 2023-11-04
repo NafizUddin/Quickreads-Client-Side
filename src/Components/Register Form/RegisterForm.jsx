@@ -63,23 +63,23 @@ const RegisterForm = () => {
   };
   return (
     <div className="flex flex-col items-center justify-center px-6 mx-auto lg:py-0">
-      <div className="w-full bg-white rounded-lg md:mt-0 sm:max-w-md xl:p-0">
+      <div className="w-full rounded-lg md:mt-0 sm:max-w-md xl:p-0">
         <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
-          <h1 className="text-3xl font-semibold leading-tight tracking-tight text-[#403F3F] border-b pt-4 pb-6">
+          <h1 className="text-3xl font-semibold leading-tight tracking-tight border-b pt-4 pb-6 dark:text-primary text-gray-900">
             Create account
           </h1>
           <form onSubmit={handleSubmit} className="space-y-4 md:space-y-6">
             <div>
               <label
                 htmlFor="name"
-                className="block mb-2 text-lg font-semibold text-[#403F3F]"
+                className="block mb-2 text-lg font-semibold dark:text-primary text-gray-900"
               >
                 Your Name
               </label>
               <input
                 type="text"
                 name="name"
-                className="bg-[#F3F3F3] border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                className="bg-[#F3F3F3] border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-500 dark:text-white"
                 placeholder="Enter Your Name"
                 required
               />
@@ -87,14 +87,14 @@ const RegisterForm = () => {
             <div>
               <label
                 htmlFor="photo"
-                className="block mb-2 text-lg font-semibold text-[#403F3F]"
+                className="block mb-2 text-lg font-semibold dark:text-primary text-gray-900"
               >
                 Photo URL
               </label>
               <input
                 type="text"
                 name="photo"
-                className="bg-[#F3F3F3] border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                className="bg-[#F3F3F3] border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-500 dark:text-white"
                 placeholder="Enter Photo URL"
                 required
               />
@@ -102,14 +102,14 @@ const RegisterForm = () => {
             <div>
               <label
                 htmlFor="email"
-                className="block mb-2 text-lg font-semibold text-[#403F3F]"
+                className="block mb-2 text-lg font-semibold dark:text-primary text-gray-900"
               >
                 Email Address
               </label>
               <input
                 type="email"
                 name="email"
-                className="bg-[#F3F3F3] border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-3"
+                className="bg-[#F3F3F3] border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-3 dark:bg-gray-500 dark:text-white"
                 placeholder="Enter your email address"
                 required
               />
@@ -117,7 +117,7 @@ const RegisterForm = () => {
             <div>
               <label
                 htmlFor="password"
-                className="block mb-2 text-lg font-semibold text-[#403F3F]"
+                className="block mb-2 text-lg font-semibold dark:text-primary text-gray-900"
               >
                 Password
               </label>
@@ -126,7 +126,7 @@ const RegisterForm = () => {
                   type={showPassword ? "text" : "password"}
                   name="password"
                   id=""
-                  className="bg-[#F3F3F3] border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-3"
+                  className="bg-[#F3F3F3] border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-3 dark:bg-gray-500 dark:text-white"
                   placeholder="••••••••"
                   required
                 />
@@ -162,10 +162,13 @@ const RegisterForm = () => {
                 />
               </div>
               <div className="ml-3 text-sm">
-                <label htmlFor="terms" className="font-light text-[#706F6F]">
+                <label
+                  htmlFor="terms"
+                  className="font-light text-[#706F6F] dark:text-white"
+                >
                   I accept the{" "}
                   <a
-                    className="font-medium text-[#FF3811] hover:underline"
+                    className="font-medium text-primary hover:underline"
                     href="#"
                   >
                     Terms and Conditions
@@ -176,12 +179,12 @@ const RegisterForm = () => {
             <input
               type="submit"
               value="Sign Up"
-              className="w-full text-white bg-[#FF3811] hover:bg-[white] hover:outline hover:text-[#FF3811] font-medium px-5 py-3 text-center my-2"
+              className="w-full text-white bg-[#13A5C9] hover:bg-[white] hover:outline hover:text-[#13A5C9] font-medium px-5 py-3 text-center my-2 dark:hover:bg-primary dark:hover:text-white"
             />
             <h1 className="text-center text-lg">
               Already have an account?{" "}
               <Link to="/login">
-                <span className="text-[#FF3811]">Sign In here</span>
+                <span className="text-primary">Sign In here</span>
               </Link>
             </h1>
           </form>
