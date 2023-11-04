@@ -13,6 +13,7 @@ export default {
           ...require("daisyui/src/theming/themes")["[data-theme=light]"],
           primary: "#13A5C9",
           "primary-focus": "mediumblue",
+          "primary-hover": "#1083A7",
         },
       },
       {
@@ -20,6 +21,7 @@ export default {
           ...require("daisyui/src/theming/themes")["[data-theme=night]"],
           primary: "#13A5C9",
           "primary-focus": "mediumblue",
+          "primary-hover": "#1083A7",
         },
       },
     ],
