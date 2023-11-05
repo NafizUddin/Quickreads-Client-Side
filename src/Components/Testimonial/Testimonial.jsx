@@ -5,11 +5,12 @@ import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
 import testimonialJson from "../../jsons/testimonialInfo.json";
+import "./testimonial.css";
 
 const Testimonial = () => {
   return (
     <div className="my-16">
-      <div className="relative md:h-[600px] lg:h-auto">
+      <div className="relative md:h-[650px] lg:h-auto">
         <img
           src="https://i.ibb.co/T44tmTD/will-van-wingerden-dsv-Jgi-BJTOs-unsplash.jpg"
           className="absolute inset-0 object-cover w-full h-full"
@@ -25,7 +26,7 @@ const Testimonial = () => {
             <div className="w-1/2 h-1 bg-white"></div>
           </div>
 
-          <div className="pt-3 pb-12 w-10/12 mx-auto">
+          <div className="pt-3 pb-12 md:w-11/12 xl:w-10/12 mx-auto">
             <Swiper
               spaceBetween={30}
               centeredSlides={true}
@@ -44,7 +45,7 @@ const Testimonial = () => {
             >
               {testimonialJson?.map((test, index) => (
                 <SwiperSlide key={index}>
-                  <div className="flex flex-col justify-center items-center gap-3 w-full h-[450px] text-white">
+                  <div className="flex flex-col justify-center items-center gap-3 w-full h-[500px] md:h-[390px] xl:h-[450px] text-white">
                     <img
                       src={test.avatar}
                       className="w-20 h-20 rounded-full object-cover"
@@ -53,7 +54,7 @@ const Testimonial = () => {
                     <h1 className="text-lg font-medium pt-1">
                       {test.profession}
                     </h1>
-                    <p className="text-center pt-8 leading-relaxed md:max-w-2xl md:mx-auto mx-5">
+                    <p className="text-center pt-11 md:pt-6 xl:pt-0 leading-relaxed md:max-w-2xl md:mx-auto mx-5">
                       {test.quotes}
                     </p>
                   </div>
