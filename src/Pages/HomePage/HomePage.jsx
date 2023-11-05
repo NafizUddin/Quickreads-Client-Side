@@ -1,11 +1,12 @@
+import Banner from "../../Components/Banner/Banner";
+import BookCategory from "../../Components/Book Category/BookCategory";
 import Footer from "../../Components/Footer/Footer";
-import Navbar from "../../Components/Main Navbar/Navbar";
 
 const HomePage = () => {
   return (
     <div>
-      <Navbar></Navbar>
-      <h1 className="text-3xl text-primary">Hello World</h1>
+      <Banner></Banner>
+      <BookCategory></BookCategory>
       <Footer></Footer>
     </div>
   );

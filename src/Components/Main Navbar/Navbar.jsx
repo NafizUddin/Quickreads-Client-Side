@@ -119,14 +119,14 @@ const Navbar = () => {
             </label>
             <ul
               tabIndex={0}
-              className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52 text-primary hover:text-primary-hover"
+              className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow rounded-box w-52 text-primary hover:text-primary-hover"
             >
               {links}
             </ul>
           </div>
           <img
             src={logo}
-            className="hidden md:block w-[230px] md:w-[270px]"
+            className="hidden md:block w-[230px] md:w-[270px] lg:w-[220px] xl:w-[270px]"
           ></img>
         </div>
         <div className="navbar-center hidden lg:flex">
@@ -169,10 +169,6 @@ const Navbar = () => {
               </div>
             ) : (
               <div className="flex items-center gap-3">
-                <img
-                  src="https://cdn3.iconfinder.com/data/icons/web-design-and-development-2-6/512/87-1024.png"
-                  className="w-10"
-                />
                 <Link to="/login">
                   <button className="bg-primary hover:bg-[#1083A7] px-4 py-3 rounded-lg text-white">
                     Sign In
