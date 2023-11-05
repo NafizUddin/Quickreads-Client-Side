@@ -96,8 +96,7 @@ const Navbar = () => {
   );
 
   return (
-    <div className="pt-2">
-      {/* style={{ backgroundColor: isButtonOn ? "white" : "#0a0f18" }} */}
+    <div className="pt-2 lg:px-4 lg:py-4 xl:pt-2 xl:px-0">
       <div className="navbar">
         <div className="navbar-start">
           <div className="dropdown">

@@ -7,6 +7,7 @@ import logo from "../../assets/Images/Logos/LightLogo-removebg-preview.png";
 import { BsArrowRight } from "react-icons/bs";
 import { BsArrowLeft } from "react-icons/bs";
 import bannerJson from "../../jsons/bannerInfo.json";
+import { TypeAnimation } from "react-type-animation";
 
 const Banner = () => {
   const SwiperNavButtons = () => {
@@ -44,14 +45,14 @@ const Banner = () => {
       >
         {bannerJson?.map((banner, index) => (
           <SwiperSlide key={index}>
-            <div className="relative md:h-[600px] lg:h-[600px]">
+            <div className="relative md:h-[600px] lg:h-auto">
               <img
                 src={banner.bannerImg}
                 className="absolute inset-0 object-cover w-full h-full"
                 alt=""
               />
               <div className="relative bg-gray-900 bg-opacity-75 h-full">
-                <div className="flex flex-col justify-center items-center pt-28 pb-16 lg:py-20 md:pt-32 md:pb-0">
+                <div className="flex flex-col justify-center items-center pt-40 pb-16 lg:pt-20 lg:pb-10 md:pt-36 md:pb-0">
                   <img
                     src={logo}
                     className="w-[220px] block md:hidden pb-5"
@@ -60,8 +61,20 @@ const Banner = () => {
                     {banner.heading}
                   </h1>
                   <p className="text-center text-white md:text-xl pt-10 leading-relaxed md:max-w-2xl md:mx-auto mx-5">
-                    Welcome to <span className="text-primary">QuickReads</span>,
-                    {banner.description}
+                    {/* Welcome to{" "}
+                    <span className="text-primary mr-2">QuickReads,</span>
+                    {banner.description} */}
+                    <TypeAnimation
+                      sequence={[
+                        // Same substring at the start will only be typed once, initially
+                        `Welcome to QuickReads, ${banner.description}`,
+                        1000,
+                      ]}
+                      speed={50}
+                      repeat={Infinity}
+                      wrapper="span"
+                      cursor={false}
+                    />
                   </p>
                   <div className="my-8">
                     <button className="bg-primary hover:bg-[#1083A7] px-4 py-3 rounded-lg text-white">
@@ -69,7 +82,7 @@ const Banner = () => {
                     </button>
                   </div>
 
-                  <div className="lg:mt-9">
+                  <div className="md:mt-8 lg:mt-9">
                     <SwiperNavButtons></SwiperNavButtons>
                   </div>
                 </div>

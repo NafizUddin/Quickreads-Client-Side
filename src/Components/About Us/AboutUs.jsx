@@ -21,13 +21,13 @@ const AboutUs = () => {
         journey with us.
       </p>
       <div
-        data-aos="zoom-out"
-        data-aos-duration="900"
+        data-aos="fade-up"
+        data-aos-duration="1200"
         className="grid grid-cols-1 xl:grid-cols-8 gap-6 py-8"
       >
         <div className="xl:col-span-5">
-          <div className="grid grid-cols-1 xl:grid-cols-2 gap-4">
-            <div className="relative flex flex-col mt-6 text-gray-700 shadow-md w-96 rounded-xl bg-clip-border">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:mx-7 xl:mx-0">
+            <div className="relative flex flex-col mt-6 text-gray-700 shadow-md md:w-[470px] lg:w-auto xl:w-96 rounded-xl bg-clip-border mx-auto">
               <div className="p-6">
                 <div className="flex items-center gap-4">
                   <div className="text-primary text-5xl">
@@ -45,7 +45,7 @@ const AboutUs = () => {
                 </p>
               </div>
             </div>
-            <div className="relative flex flex-col mt-6 text-gray-700 shadow-md w-96 rounded-xl bg-clip-border">
+            <div className="relative flex flex-col mt-6 text-gray-700 shadow-md md:w-[470px] lg:w-auto xl:w-96 rounded-xl bg-clip-border mx-auto">
               <div className="p-6">
                 <div className="flex items-center gap-4">
                   <div className="text-primary text-5xl">
@@ -63,7 +63,7 @@ const AboutUs = () => {
                 </p>
               </div>
             </div>
-            <div className="relative flex flex-col mt-6 text-gray-700 shadow-md w-96 rounded-xl bg-clip-border">
+            <div className="relative flex flex-col mt-6 text-gray-700 shadow-md md:w-[470px] lg:w-auto xl:w-96 rounded-xl bg-clip-border mx-auto">
               <div className="p-6">
                 <div className="flex items-center gap-4">
                   <div className="text-primary text-5xl">
@@ -82,7 +82,7 @@ const AboutUs = () => {
                 </p>
               </div>
             </div>
-            <div className="relative flex flex-col mt-6 text-gray-700 shadow-md w-96 rounded-xl bg-clip-border">
+            <div className="relative flex flex-col mt-6 text-gray-700 shadow-md md:w-[470px] lg:w-auto xl:w-96 rounded-xl bg-clip-border mx-auto">
               <div className="p-6">
                 <div className="flex items-center gap-4">
                   <div className="text-primary text-5xl">
@@ -111,7 +111,7 @@ const AboutUs = () => {
             />
             <div className="relative bg-gray-900 bg-opacity-70 h-full">
               <h1
-                className="text-white font-bold text-center text-2xl  md:text-4xl lg:text-3xl xl:text-4xl py-28 md:py-28 lg:py-44 xl:py-52 px-2
+                className="text-white font-bold text-center text-2xl  md:text-4xl lg:text-4xl py-28 md:py-28 lg:py-44 xl:py-52 px-2
                md:px-20 lg:px-7"
               >
                 Explore Our Library: Where Words Come to Life
