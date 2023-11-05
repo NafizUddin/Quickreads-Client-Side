@@ -1,7 +1,22 @@
 [
   {
-    "bannerImg": "",
+    "bannerImg": "https://i.ibb.co/7tf4y7r/inaki-del-olmo-NIJu-EQw0-RKg-unsplash.jpg",
     "heading": "Empower Your Mind with Knowledge",
     "description": "unleash the power of knowledge by accessing a world of books in our library. Let books be your key to empowerment.Dive into our digital resources for even more learning opportunities."
+  },
+  {
+    "bannerImg": "https://i.ibb.co/MGm1Tyr/fallon-michael-qml-GWIa-Igpo-unsplash.jpg",
+    "heading": "Discover Your Next Adventure",
+    "description": "explore our vast library and embark on a literary journey through our extensive collection of books. Your next adventure awaits! Visit our book library to discuss your latest finds."
+  },
+  {
+    "bannerImg": "https://i.ibb.co/gFgKfZN/devon-divine-Hzp-1ua8-DVE-unsplash.jpg",
+    "heading": "The Learning Oasis",
+    "description": "where learning meets convenience. Explore our diverse collection of books and unlock your potential. Stay engaged with our community events and discussions."
+  },
+  {
+    "bannerImg": "https://i.ibb.co/Kq4jyGD/prateek-katyal-Yz-GQv-ASe-Mk-unsplash.jpg",
+    "heading": "Organize, Explore, Thrive",
+    "description": "streamline your library management and dive into a world of knowledge. Organize, explore, and thrive with our library resources. Attend our author events for a deeper connection to literature."
   }
 ]

@@ -2,6 +2,9 @@ import { BsPersonVcard } from "react-icons/bs";
 import { LiaMedalSolid } from "react-icons/lia";
 import { IoBookSharp } from "react-icons/io5";
 import { LiaBookSolid } from "react-icons/lia";
+import AOS from "aos";
+import "aos/dist/aos.css";
+AOS.init();
 
 const AboutUs = () => {
   return (
@@ -17,7 +20,11 @@ const AboutUs = () => {
         fuel your curiosity and make learning a joy.Embark on this literary
         journey with us.
       </p>
-      <div className="grid grid-cols-1 xl:grid-cols-8 gap-6">
+      <div
+        data-aos="zoom-out"
+        data-aos-duration="900"
+        className="grid grid-cols-1 xl:grid-cols-8 gap-6 py-8"
+      >
         <div className="xl:col-span-5">
           <div className="grid grid-cols-1 xl:grid-cols-2 gap-4">
             <div className="relative flex flex-col mt-6 text-gray-700 shadow-md w-96 rounded-xl bg-clip-border">
@@ -96,10 +103,10 @@ const AboutUs = () => {
             </div>
           </div>
         </div>
-        <div className="xl:col-span-3">
+        <div className="xl:col-span-3 pt-3">
           <div className="mb-8 lg:mb-0 relative w-full h-[300px] lg:h-full">
             <img
-              src="https://image.freepik.com/free-vector/restaurant-mural-wallpaper_23-2148703851.jpg"
+              src="https://i.ibb.co/ZHWcJ77/emil-widlund-xrbb-XIXAWY0-unsplash.jpg"
               className="absolute inset-0 object-cover w-full h-full"
             />
             <div className="relative bg-gray-900 bg-opacity-70 h-full">
