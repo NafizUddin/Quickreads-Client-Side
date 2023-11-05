@@ -70,7 +70,7 @@ const Banner = () => {
                         `Welcome to QuickReads, ${banner.description}`,
                         1000,
                       ]}
-                      speed={50}
+                      speed={40}
                       repeat={Infinity}
                       wrapper="span"
                       cursor={false}

@@ -16,9 +16,10 @@ const AboutUs = () => {
         <div className="w-1/2 h-1 bg-primary"></div>
       </div>
       <p className="md:max-w-xl md:mx-auto mx-6 text-gray-500 text-center dark:text-white">
-        Your gateway to knowledge and literary exploration. We&apos;re here to
-        fuel your curiosity and make learning a joy.Embark on this literary
-        journey with us.
+        Welcome to <span className="text-primary">QuickReads</span>,Your gateway
+        to knowledge and literary exploration. We&apos;re here to fuel your
+        curiosity and make learning a joy.Embark on this literary journey with
+        us.
       </p>
       <div
         data-aos="fade-up"
