@@ -8,12 +8,12 @@ import ErrorPage from "../Pages/Error Page/ErrorPage";
 const MainRoute = createBrowserRouter([
   {
     path: "/",
-    element: <MainLayout></MainLayout>,
-    errorElement: <ErrorPage></ErrorPage>,
+    element: <MainLayout />,
+    errorElement: <ErrorPage />,
     children: [
       {
         path: "/",
-        element: <HomePage></HomePage>,
+        element: <HomePage />,
       },
     ],
   },

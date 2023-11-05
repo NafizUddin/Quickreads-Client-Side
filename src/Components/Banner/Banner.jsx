@@ -31,9 +31,9 @@ const Banner = () => {
 
   return (
     <div className="min-h-screen">
-      {/* <div className="mb-44 z-10">
+      <div className="">
         <Navbar></Navbar>
-      </div> */}
+      </div>
       <Swiper
         slidesPerView={1}
         spaceBetween={30}
@@ -49,10 +49,6 @@ const Banner = () => {
               alt=""
             />
             <div className="relative bg-gray-900 bg-opacity-75 h-full">
-              <div>
-                <Navbar></Navbar>
-              </div>
-
               <div className="flex flex-col justify-center items-center pt-28 pb-16 lg:py-20 md:pt-32 md:pb-0">
                 <img
                   src={logo}
@@ -88,7 +84,6 @@ const Banner = () => {
               alt=""
             />
             <div className="relative bg-gray-900 bg-opacity-75 h-full">
-              <Navbar></Navbar>
               <div className="flex flex-col justify-center items-center pt-28 pb-16 lg:py-20 md:pt-32 md:pb-0">
                 <img
                   src={logo}
@@ -123,7 +118,6 @@ const Banner = () => {
               alt=""
             />
             <div className="relative bg-gray-900 bg-opacity-75 h-full">
-              <Navbar></Navbar>
               <div className="flex flex-col justify-center items-center pt-28 pb-16 lg:py-20 md:pt-32 md:pb-0">
                 <img
                   src={logo}
@@ -158,7 +152,6 @@ const Banner = () => {
               alt=""
             />
             <div className="relative bg-gray-900 bg-opacity-60 h-full">
-              <Navbar></Navbar>
               <div className="flex flex-col justify-center items-center pt-28 pb-16 lg:py-20 md:pt-32 md:pb-0">
                 <img
                   src={logo}
