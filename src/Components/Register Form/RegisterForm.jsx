@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
 import { Link, useLocation, useNavigate } from "react-router-dom";
@@ -16,6 +16,10 @@ const RegisterForm = () => {
   const location = useLocation();
   const axiosSecure = useAxiosInterceptorsSecure();
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const handleFormSubmit = (data) => {
     console.log(data);
 
@@ -31,12 +35,12 @@ const RegisterForm = () => {
           axiosSecure.post("/api/users", user).then((res) => {
             if (res.data.insertedId) {
               reset();
-              navigate(location?.state ? location.state : "/");
               Swal.fire(
                 "Success!",
                 "You have logged in successfully!",
                 "success"
               );
+              navigate(location?.state ? location.state : "/");
             }
           });
         });

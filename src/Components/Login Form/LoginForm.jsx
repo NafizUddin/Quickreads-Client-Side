@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
@@ -6,14 +6,21 @@ import { BsGithub } from "react-icons/bs";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import useAuth from "../../Custom Hooks/useAuth";
+import { useForm } from "react-hook-form";
 
 // import axios from "axios";
 
 const LoginForm = () => {
+  const { register, handleSubmit, reset, formState } = useForm();
+  const { errors } = formState;
   const location = useLocation();
   const navigate = useNavigate();
   const { logInWithGoogle, logInWithGithub, signInUser } = useAuth();
   const [showPassword, setShowPassword] = useState(false);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const handleGoogleLogin = () => {
     logInWithGoogle()
@@ -39,39 +46,16 @@ const LoginForm = () => {
       });
   };
 
-  const handleSignIn = (e) => {
-    e.preventDefault();
-    const form = new FormData(e.currentTarget);
-    const email = form.get("email");
-    const password = form.get("password");
+  const handleSignIn = (data) => {
+    console.log(data);
 
-    signInUser(email, password)
+    signInUser(data.userEmail, data.password)
       .then((res) => {
         const loggedInUser = res.user;
         console.log(loggedInUser);
-        // const user = { email };
-        // localStorage.setItem("userId", res.user.uid);
-        // console.log(res.user.uid);
-
-        navigate(location?.state ? location.state : "/");
+        reset();
         Swal.fire("Success!", "You have logged in successfully!", "success");
-
-        // get access token
-        // axios
-        //   .post("http://localhost:3000/jwt", user, {
-        //     withCredentials: true,
-        //   })
-        //   .then((res) => {
-        //     console.log(res.data);
-        //     if (res.data.success) {
-        //       navigate(location?.state ? location.state : "/");
-        //       Swal.fire(
-        //         "Success!",
-        //         "You have logged in successfully!",
-        //         "success"
-        //       );
-        //     }
-        //   });
+        navigate(location?.state ? location.state : "/");
       })
       .catch((error) => {
         Swal.fire("Ooppss!", "Your Email or Password didn't match", "error");
@@ -85,7 +69,11 @@ const LoginForm = () => {
           <h1 className="text-3xl font-semibold leading-tight tracking-tight border-b pt-4 pb-6 dark:text-primary text-gray-900">
             Login to your account
           </h1>
-          <form onSubmit={handleSignIn} className="space-y-4 md:space-y-6">
+          <form
+            onSubmit={handleSubmit(handleSignIn)}
+            className="space-y-4 md:space-y-6"
+            noValidate
+          >
             <div>
               <label
                 htmlFor="email"
@@ -95,11 +83,23 @@ const LoginForm = () => {
               </label>
               <input
                 type="email"
-                name="email"
+                {...register("userEmail", {
+                  required: {
+                    value: true,
+                    message: "Email is required",
+                  },
+                  pattern: {
+                    value:
+                      /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
+                    message: "Invalid Email Format",
+                  },
+                })}
                 className="bg-[#F3F3F3] border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-3 dark:bg-gray-500 dark:text-white"
                 placeholder="Enter your email address"
-                required
               />
+              <p className="mt-2 text-sm text-red-600 font-medium">
+                {errors?.userEmail?.message}
+              </p>
             </div>
             <div>
               <label
@@ -111,7 +111,12 @@ const LoginForm = () => {
               <div className="relative">
                 <input
                   type={showPassword ? "text" : "password"}
-                  name="password"
+                  {...register("password", {
+                    required: {
+                      value: true,
+                      message: "Password is required",
+                    },
+                  })}
                   id=""
                   className="bg-[#F3F3F3] border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-3 dark:bg-gray-500 dark:text-white"
                   placeholder="••••••••"

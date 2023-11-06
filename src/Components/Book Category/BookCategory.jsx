@@ -36,7 +36,7 @@ const BookCategory = () => {
 
       <div
         data-aos="zoom-in-down"
-        data-aos-duration="800"
+        data-aos-duration="500"
         className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-12 mx-6 xl:mx-auto mt-14 xl:w-11/12"
       >
         {categories?.map((singleCategory) => (

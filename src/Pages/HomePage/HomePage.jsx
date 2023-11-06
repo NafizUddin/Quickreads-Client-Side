@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import AboutUs from "../../Components/About Us/AboutUs";
 import Banner from "../../Components/Banner/Banner";
 import BookCategory from "../../Components/Book Category/BookCategory";
@@ -6,6 +7,9 @@ import Testimonial from "../../Components/Testimonial/Testimonial";
 import WhyChooseUs from "../../Components/Why Choose Us/WhyChooseUs";
 
 const HomePage = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <div>
       <Banner></Banner>
