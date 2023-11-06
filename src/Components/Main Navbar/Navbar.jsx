@@ -52,7 +52,7 @@ const Navbar = () => {
       </li>
       <li>
         <NavLink
-          to="/addItems"
+          to="/addBooks"
           className={({ isActive, isPending }) =>
             isActive
               ? "bg-primary px-3 py-2 text-white rounded-md"
