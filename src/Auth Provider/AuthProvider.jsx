@@ -13,7 +13,6 @@ import { createContext, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { app } from "../Firebase Config/firebase.config";
 import useAxiosInterceptorsSecure from "../Custom Hooks/useAxiosInterceptorsSecure";
-import axios from "axios";
 
 export const AuthContext = createContext({});
 
@@ -65,23 +64,19 @@ const AuthProvider = ({ children }) => {
       setUser(currentUser);
       setLoading(false);
       if (currentUser) {
-        axios
-          .post("http://localhost:3000/api/auth/access-token", loggedInUser)
-          .then((res) => {
-            console.log(res.data);
-          });
+        axiosSecure.post("/api/auth/access-token", loggedInUser).then((res) => {
+          console.log(res.data);
+        });
       } else {
-        axios
-          .post("http://localhost:3000/api/auth/logout", loggedInUser)
-          .then((res) => {
-            console.log(res.data);
-          });
+        axiosSecure.post("/api/auth/logout", loggedInUser).then((res) => {
+          console.log(res.data);
+        });
       }
     });
     return () => {
       unsubscribe();
     };
-  }, [user?.email]);
+  }, [user?.email, axiosSecure]);
 
   const authInfo = {
     user,

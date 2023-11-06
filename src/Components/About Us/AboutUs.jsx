@@ -23,7 +23,7 @@ const AboutUs = () => {
       </p>
       <div
         data-aos="fade-up"
-        data-aos-duration="1200"
+        data-aos-duration="1400"
         className="grid grid-cols-1 xl:grid-cols-8 gap-6 py-8"
       >
         <div className="xl:col-span-5">

@@ -92,7 +92,7 @@ const AddBooks = () => {
                     <option value="">Select a book category</option>
                     <option value="History">History</option>
                     <option value="Science">Science</option>
-                    <option value="Comics">Comics</option>
+                    <option value="Comics">Literature</option>
                     <option value="Mystery">Mystery</option>
                     <option value="Medical">Medical</option>
                     <option value="Business">Business</option>
@@ -177,34 +177,39 @@ const AddBooks = () => {
                   </select>
                 )}
               />
-              {/* <select
-                required
-                onChange={(e) => setSelectedRating(e.target.value)}
-                className="my-2 border border-primary text-base focus:outline-none focus:ring block w-full py-3 px-4 rounded focus:ring-blue-500 dark:bg-gray-500 dark:text-white"
-              >
-                <option value="">Select Rating</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-              </select> */}
             </div>
           </div>
-          <div className="px-8 mb-4">
-            <label
-              className="text-lg font-semibold text-primary"
-              htmlFor="description"
-            >
-              Book Description
-            </label>
-            <input
-              required
-              type="text"
-              {...register("description")}
-              placeholder="Enter Book Description"
-              className="w-full py-3 px-4 my-2 rounded border border-primary focus:outline-none focus:ring focus:ring-blue-500 dark:bg-gray-500 dark:text-white"
-            />
+          <div className="px-8 mb-4 flex gap-7">
+            <div className="flex-1">
+              <label
+                className="text-lg font-semibold text-primary"
+                htmlFor="description"
+              >
+                Book Description
+              </label>
+              <input
+                required
+                type="text"
+                {...register("description")}
+                placeholder="Enter Book Description"
+                className="w-full py-3 px-4 my-2 rounded border border-primary focus:outline-none focus:ring focus:ring-blue-500 dark:bg-gray-500 dark:text-white"
+              />
+            </div>
+            <div className="flex-1">
+              <label
+                className="text-lg font-semibold text-primary"
+                htmlFor="description"
+              >
+                Book Preview Text
+              </label>
+              <input
+                required
+                type="text"
+                {...register("preview")}
+                placeholder="Enter Book Preview Text"
+                className="w-full py-3 px-4 my-2 rounded border border-primary focus:outline-none focus:ring focus:ring-blue-500 dark:bg-gray-500 dark:text-white"
+              />
+            </div>
           </div>
           <div className="pb-12 text-white w-1/3 md:w-1/5 mx-auto">
             <input
