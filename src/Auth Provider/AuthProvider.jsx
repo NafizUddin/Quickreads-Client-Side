@@ -12,8 +12,10 @@ import {
 import { createContext, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { app } from "../Firebase Config/firebase.config";
+import useAxiosInterceptorsSecure from "../Custom Hooks/useAxiosInterceptorsSecure";
+import axios from "axios";
 
-export const AuthContext = createContext(null);
+export const AuthContext = createContext({});
 
 const googleProvider = new GoogleAuthProvider();
 const githubProvider = new GithubAuthProvider();
@@ -22,6 +24,7 @@ const auth = getAuth(app);
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const axiosSecure = useAxiosInterceptorsSecure();
 
   const logInWithGoogle = () => {
     setLoading(true);
@@ -57,13 +60,29 @@ const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      const userEmail = currentUser?.email || user?.email;
+      const loggedInUser = { email: userEmail };
+      console.log(currentUser, loggedInUser);
       setUser(currentUser);
       setLoading(false);
+      if (currentUser) {
+        axios
+          .post("http://localhost:3000/api/auth/access-token", loggedInUser)
+          .then((res) => {
+            console.log(res.data);
+          });
+      } else {
+        axios
+          .post("http://localhost:3000/api/auth/logout", loggedInUser)
+          .then((res) => {
+            console.log(res.data);
+          });
+      }
     });
     return () => {
       unsubscribe();
     };
-  }, []);
+  }, [user?.email]);
 
   const authInfo = {
     user,

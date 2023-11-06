@@ -2,58 +2,43 @@ import { useState } from "react";
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-
 import useAuth from "../../Custom Hooks/useAuth";
 import Swal from "sweetalert2";
-// import axios from "axios";
+import { useForm } from "react-hook-form";
+import useAxiosInterceptorsSecure from "../../Custom Hooks/useAxiosInterceptorsSecure";
 
 const RegisterForm = () => {
+  const { register, handleSubmit, reset, formState } = useForm();
+  const { errors } = formState;
   const { createUser, updateUserProfile } = useAuth();
   const [showPassword, setShowPassword] = useState(false);
-  const [passValidation, setPassValidation] = useState(0);
   const navigate = useNavigate();
   const location = useLocation();
+  const axiosSecure = useAxiosInterceptorsSecure();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const form = new FormData(e.currentTarget);
-    const name = form.get("name");
-    const photoURL = form.get("photo");
-    const email = form.get("email");
-    const password = form.get("password");
-    const termsAccepted = form.get("terms");
-    setPassValidation(0);
+  const handleFormSubmit = (data) => {
+    console.log(data);
 
-    if (password.length < 6) {
-      setPassValidation(1);
-      return;
-    } else if (
-      !/^(?=.*[A-Z])(?=.*[!@#$%^&*()_+,\-./:;<=>?@[\\\]^_`{|}~]).*$/.test(
-        password
-      )
-    ) {
-      setPassValidation(2);
-      return;
-    } else if (!termsAccepted) {
-      Swal.fire("Oopss", "Please Accept our terms and conditions", "warning");
-      return;
-    }
+    createUser(data.userEmail, data.password)
+      .then((res) => {
+        updateUserProfile(data.userName, data.photo).then(() => {
+          const user = {
+            email: data.userEmail,
+            name: data.userName,
+            firebaseId: res.user.uid,
+          };
 
-    createUser(email, password)
-      .then(() => {
-        updateUserProfile(name, photoURL).then(() => {
-          // const user = { email };
-          navigate(location?.state ? location.state : "/");
-          Swal.fire("Success!", "You have logged in successfully!", "success");
-          // axios
-          //   .post("http://localhost:3000/jwt", user, {
-          //     withCredentials: true,
-          //   })
-          //   .then((res) => {
-          //     console.log(res.data);
-          //     if (res.data.success) {
-          //     }
-          //   });
+          axiosSecure.post("/api/users", user).then((res) => {
+            if (res.data.insertedId) {
+              reset();
+              navigate(location?.state ? location.state : "/");
+              Swal.fire(
+                "Success!",
+                "You have logged in successfully!",
+                "success"
+              );
+            }
+          });
         });
       })
       .catch((error) => {
@@ -68,7 +53,11 @@ const RegisterForm = () => {
           <h1 className="text-3xl font-semibold leading-tight tracking-tight border-b pt-4 pb-6 dark:text-primary text-gray-900">
             Create account
           </h1>
-          <form onSubmit={handleSubmit} className="space-y-4 md:space-y-6">
+          <form
+            onSubmit={handleSubmit(handleFormSubmit)}
+            noValidate
+            className="space-y-4 md:space-y-6"
+          >
             <div>
               <label
                 htmlFor="name"
@@ -78,11 +67,15 @@ const RegisterForm = () => {
               </label>
               <input
                 type="text"
-                name="name"
+                {...register("userName", {
+                  required: { value: true, message: "User Name is required" },
+                })}
                 className="bg-[#F3F3F3] border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-500 dark:text-white"
                 placeholder="Enter Your Name"
-                required
               />
+              <p className="mt-2 text-sm text-red-600 font-medium">
+                {errors?.userName?.message}
+              </p>
             </div>
             <div>
               <label
@@ -93,11 +86,18 @@ const RegisterForm = () => {
               </label>
               <input
                 type="text"
-                name="photo"
+                {...register("photo", {
+                  required: {
+                    value: true,
+                    message: "User Photo is required",
+                  },
+                })}
                 className="bg-[#F3F3F3] border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-500 dark:text-white"
                 placeholder="Enter Photo URL"
-                required
               />
+              <p className="mt-2 text-sm text-red-600 font-medium">
+                {errors?.photo?.message}
+              </p>
             </div>
             <div>
               <label
@@ -108,11 +108,23 @@ const RegisterForm = () => {
               </label>
               <input
                 type="email"
-                name="email"
+                {...register("userEmail", {
+                  required: {
+                    value: true,
+                    message: "User Email is required",
+                  },
+                  pattern: {
+                    value:
+                      /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
+                    message: "Invalid Email Format",
+                  },
+                })}
                 className="bg-[#F3F3F3] border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-3 dark:bg-gray-500 dark:text-white"
                 placeholder="Enter your email address"
-                required
               />
+              <p className="mt-2 text-sm text-red-600 font-medium">
+                {errors?.userEmail?.message}
+              </p>
             </div>
             <div>
               <label
@@ -124,7 +136,18 @@ const RegisterForm = () => {
               <div className="relative">
                 <input
                   type={showPassword ? "text" : "password"}
-                  name="password"
+                  {...register("password", {
+                    required: {
+                      value: true,
+                      message: "Password is required",
+                    },
+                    pattern: {
+                      value:
+                        /^(?=.*[0-9])(?=.*[!@#$%^&*()_+,\-./:;<=>?@[\\\]^_`{|}~])[A-Za-z0-9!@#$%^&*()_+,\-./:;<=>?@[\\\]^_`{|}~]{6,}$/,
+                      message:
+                        "Password must have at least 6 characters and contain at least one uppercase letter, one lowercase letter and one special character",
+                    },
+                  })}
                   id=""
                   className="bg-[#F3F3F3] border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-3 dark:bg-gray-500 dark:text-white"
                   placeholder="••••••••"
@@ -137,28 +160,23 @@ const RegisterForm = () => {
                   {showPassword ? <FaEyeSlash></FaEyeSlash> : <FaEye></FaEye>}
                 </span>
               </div>
-              {passValidation === 1 && (
-                <p className="mt-2 text-sm text-red-600">
-                  <span className="font-medium">Oops!</span> Password should be
-                  more than 6 characters.
-                </p>
-              )}
-              {passValidation === 2 && (
-                <p className="mt-2 text-sm text-red-600">
-                  <span className="font-medium">Oops!</span> Password should
-                  have an uppercase letter and a special character.
-                </p>
-              )}
+              <p className="mt-2 text-sm text-red-600 font-medium">
+                {errors?.password?.message}
+              </p>
             </div>
             <div className="flex items-start my-5">
               <div className="flex items-center h-5">
                 <input
                   type="checkbox"
-                  name="terms"
+                  {...register("terms", {
+                    required: {
+                      value: true,
+                      message: "Please accept terms and conditions",
+                    },
+                  })}
                   id="terms"
                   className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300"
                   aria-describedby="terms"
-                  required=""
                 />
               </div>
               <div className="ml-3 text-sm">
@@ -176,6 +194,9 @@ const RegisterForm = () => {
                 </label>
               </div>
             </div>
+            <p className="mt-2 text-sm text-orange-500 font-medium">
+              {errors?.terms?.message}
+            </p>
             <input
               type="submit"
               value="Sign Up"

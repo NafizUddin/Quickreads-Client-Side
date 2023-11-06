@@ -99,19 +99,6 @@ const AddBooks = () => {
                   </select>
                 )}
               />
-              {/* <select
-                required
-                onChange={(e) => setSelectedCategory(e.target.value)}
-                className="my-2 border border-primary text-base focus:outline-none focus:ring block w-full py-3 px-4 rounded focus:ring-blue-500 dark:bg-gray-500 dark:text-white"
-              >
-                <option value="">Select a book category</option>
-                <option value="History">History</option>
-                <option value="Science">Science</option>
-                <option value="Comics">Comics</option>
-                <option value="Mystery">Mystery</option>
-                <option value="Medical">Medical</option>
-                <option value="Business">Business</option>
-              </select> */}
             </div>
           </div>
           <div className="flex gap-7 px-8 mb-4">

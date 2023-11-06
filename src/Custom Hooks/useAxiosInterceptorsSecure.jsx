@@ -1,8 +1,8 @@
 import axios from "axios";
-import useAuth from "./useAuth";
-import { useNavigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import { useEffect } from "react";
 import Swal from "sweetalert2";
+import useAuth from "./useAuth";
 
 const axiosSecure = axios.create({
   baseURL: "http://localhost:3000",
@@ -10,8 +10,9 @@ const axiosSecure = axios.create({
 });
 
 const useAxiosInterceptorsSecure = () => {
+  // console.log(useAuth());
   const { logOut } = useAuth();
-  const navigate = useNavigate();
+  // const { logOut } = useContext(AuthContext);
 
   useEffect(() => {
     axiosSecure.interceptors.response.use(
@@ -23,13 +24,13 @@ const useAxiosInterceptorsSecure = () => {
           logOut()
             .then(() => {
               Swal.fire("Ooopss!", "You have been logged out!", "success");
-              navigate("/login");
+              <Navigate to="/login"></Navigate>;
             })
             .catch((error) => console.log(error.code));
         }
       }
     );
-  }, [logOut, navigate]);
+  }, [logOut]);
 
   return axiosSecure;
 };
