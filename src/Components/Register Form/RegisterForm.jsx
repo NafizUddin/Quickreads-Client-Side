@@ -74,7 +74,7 @@ const RegisterForm = () => {
                 {...register("userName", {
                   required: { value: true, message: "User Name is required" },
                 })}
-                className="bg-[#F3F3F3] border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-500 dark:text-white"
+                className="bg-[#F3F3F3] text-gray-900 sm:text-sm rounded-lg border border-primary focus:outline-none focus:ring focus:ring-blue-500 block w-full p-2.5 dark:bg-gray-500 dark:text-white"
                 placeholder="Enter Your Name"
               />
               <p className="mt-2 text-sm text-red-600 font-medium">
@@ -96,7 +96,7 @@ const RegisterForm = () => {
                     message: "User Photo is required",
                   },
                 })}
-                className="bg-[#F3F3F3] border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-500 dark:text-white"
+                className="bg-[#F3F3F3] text-gray-900 sm:text-sm rounded-lg border border-primary focus:outline-none focus:ring focus:ring-blue-500 block w-full p-2.5 dark:bg-gray-500 dark:text-white"
                 placeholder="Enter Photo URL"
               />
               <p className="mt-2 text-sm text-red-600 font-medium">
@@ -123,7 +123,7 @@ const RegisterForm = () => {
                     message: "Invalid Email Format",
                   },
                 })}
-                className="bg-[#F3F3F3] border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-3 dark:bg-gray-500 dark:text-white"
+                className="bg-[#F3F3F3] text-gray-900 sm:text-sm rounded-lg border border-primary focus:outline-none focus:ring focus:ring-blue-500 block w-full p-3 dark:bg-gray-500 dark:text-white"
                 placeholder="Enter your email address"
               />
               <p className="mt-2 text-sm text-red-600 font-medium">
@@ -153,7 +153,7 @@ const RegisterForm = () => {
                     },
                   })}
                   id=""
-                  className="bg-[#F3F3F3] border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-3 dark:bg-gray-500 dark:text-white"
+                  className="bg-[#F3F3F3] text-gray-900 sm:text-sm rounded-lg border border-primary focus:outline-none focus:ring focus:ring-blue-500 block w-full p-3 dark:bg-gray-500 dark:text-white"
                   placeholder="••••••••"
                   required
                 />
@@ -179,7 +179,7 @@ const RegisterForm = () => {
                     },
                   })}
                   id="terms"
-                  className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300"
+                  className="w-4 h-4 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300"
                   aria-describedby="terms"
                 />
               </div>

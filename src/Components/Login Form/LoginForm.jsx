@@ -92,7 +92,7 @@ const LoginForm = () => {
                     message: "Invalid Email Format",
                   },
                 })}
-                className="bg-[#F3F3F3] border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-3 dark:bg-gray-500 dark:text-white"
+                className="bg-[#F3F3F3]  text-gray-900 sm:text-sm rounded-lg border border-primary focus:outline-none focus:ring focus:ring-blue-500 block w-full p-3 dark:bg-gray-500 dark:text-white"
                 placeholder="Enter your email address"
               />
               <p className="mt-2 text-sm text-red-600 font-medium">
@@ -116,7 +116,7 @@ const LoginForm = () => {
                     },
                   })}
                   id=""
-                  className="bg-[#F3F3F3] border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-3 dark:bg-gray-500 dark:text-white"
+                  className="bg-[#F3F3F3] text-gray-900 sm:text-sm rounded-lg border border-primary focus:outline-none focus:ring focus:ring-blue-500 block w-full p-3 dark:bg-gray-500 dark:text-white"
                   placeholder="••••••••"
                   required
                 />
