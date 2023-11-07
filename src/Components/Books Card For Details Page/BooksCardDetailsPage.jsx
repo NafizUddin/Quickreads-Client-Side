@@ -5,8 +5,7 @@ import Rating from "react-rating";
 import { Link } from "react-router-dom";
 import { FiBookOpen } from "react-icons/fi";
 
-const BooksCardForAllPage = ({ book }) => {
-  //   console.log(Object.keys(book).join(","));
+const BooksCardDetailsPage = ({ book }) => {
   const { _id, name, author, photo, bookCategory, rating, quantity } = book;
   return (
     <div>
@@ -48,9 +47,9 @@ const BooksCardForAllPage = ({ book }) => {
             <span>{quantity}</span>
           </p>
           <div className="mt-4">
-            <Link to={`/updateBooks/${_id}`}>
+            <Link to={`/bookDetails/${_id}`}>
               <button className="px-4 py-2 font-medium bg-primary text-white rounded-2xl flex gap-2 items-center">
-                Update Book <FiBookOpen className="mt-1 text-lg" />
+                Book Details <FiBookOpen className="mt-1 text-lg" />
               </button>
             </Link>
           </div>
@@ -60,8 +59,8 @@ const BooksCardForAllPage = ({ book }) => {
   );
 };
 
-BooksCardForAllPage.propTypes = {
+BooksCardDetailsPage.propTypes = {
   book: PropTypes.object,
 };
 
-export default BooksCardForAllPage;
+export default BooksCardDetailsPage;

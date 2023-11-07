@@ -1,4 +1,5 @@
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 
 const CategoryCard = ({ singleCategory }) => {
   const { category, image } = singleCategory;
@@ -14,9 +15,11 @@ const CategoryCard = ({ singleCategory }) => {
         </h4>
       </div>
       <div className="flex justify-center items-center pb-10">
-        <button className="bg-primary hover:bg-[#1083A7] px-4 py-3 rounded-lg text-white">
-          View Books
-        </button>
+        <Link to={`/categoryDetails/${category}`}>
+          <button className="bg-primary hover:bg-[#1083A7] px-4 py-3 rounded-lg text-white">
+            View Books
+          </button>
+        </Link>
       </div>
     </div>
   );

@@ -228,7 +228,7 @@ const UpdateBooks = () => {
               />
             </div>
           </div>
-          <div className="pb-12 text-white w-1/3 md:w-1/5 mx-auto">
+          <div className="pb-5 text-white w-1/3 md:w-1/5 mx-auto">
             <input
               type="submit"
               value="Update Book"
