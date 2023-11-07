@@ -44,7 +44,7 @@ const BooksCardForAllPage = ({ book }) => {
             <span>{bookCategory}</span>
           </p>
           <div className="mt-4">
-            <Link>
+            <Link to={`/updateBooks/${_id}`}>
               <button className="px-4 py-2 font-medium bg-primary text-white rounded-2xl flex gap-2 items-center">
                 Update Book <FiBookOpen className="mt-1 text-lg" />
               </button>

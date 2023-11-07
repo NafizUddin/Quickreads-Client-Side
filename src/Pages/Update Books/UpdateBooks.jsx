@@ -1,28 +1,33 @@
-import Swal from "sweetalert2";
-import logo from "../../assets/Images/Logos/LightLogo-removebg-preview.png";
-import Footer from "../../Components/Footer/Footer";
+import { useLoaderData, useNavigate } from "react-router-dom";
 import Navbar from "../../Components/Main Navbar/Navbar";
+import Footer from "../../Components/Footer/Footer";
+import logo from "../../assets/Images/Logos/LightLogo-removebg-preview.png";
 import { Controller, useForm } from "react-hook-form";
-import "./addBooks.css";
 import useAxiosInterceptorsSecure from "../../Custom Hooks/useAxiosInterceptorsSecure";
+import "./updateBooks.css";
 import { useEffect } from "react";
+import { BiArrowBack } from "react-icons/bi";
+import Swal from "sweetalert2";
 
-const AddBooks = () => {
-  const { register, control, handleSubmit, reset } = useForm();
-  const axiosSecure = useAxiosInterceptorsSecure();
+const UpdateBooks = () => {
+  const singleBook = useLoaderData();
+  const navigate = useNavigate();
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
-  const handleAddBooks = (data) => {
+  const axiosSecure = useAxiosInterceptorsSecure();
+  console.log(singleBook);
+  const { register, control, handleSubmit } = useForm();
+
+  const handleUpdateBooks = (data) => {
     console.log(data);
 
-    axiosSecure.post("/api/books", data).then((res) => {
-      console.log(res.data);
-      if (res.data.insertedId) {
-        Swal.fire("Good job!", "You added a new book", "success");
-        reset();
+    axiosSecure.put(`/api/books/${singleBook._id}`, data).then((res) => {
+      if (res.data.modifiedCount > 0) {
+        Swal.fire("Good job!", "You updated the book successfully", "success");
+        navigate("/allBooks");
       }
     });
   };
@@ -37,9 +42,9 @@ const AddBooks = () => {
         />
         <div className="relative bg-gray-900 bg-opacity-70 h-full rounded-md">
           <div className="flex flex-col items-center justify-center h-full">
-            <img src={logo} className="w-[300px] block md:hidden"></img>
-            <h1 className="text-white text-4xl md:text-6xl font-bold mt-2 text-center">
-              Add New Book
+            <img src={logo} className="w-[260px] block md:hidden"></img>
+            <h1 className="text-white text-3xl md:text-6xl font-bold text-center mt-2">
+              Update Existing Book
             </h1>
             <p className="text-center py-3 mx-8 text-white">
               <span className="text-primary">QuickReads</span>: Your Gateway to
@@ -55,10 +60,10 @@ const AddBooks = () => {
       </div>
       <div className="mt-10 lg:mt-14 dark:text-white">
         <form
-          onSubmit={handleSubmit(handleAddBooks)}
+          onSubmit={handleSubmit(handleUpdateBooks)}
           className="w-11/12 mx-auto my-8"
         >
-          <div className="flex flex-col lg:flex-row  gap-7 px-8 mb-4">
+          <div className="flex gap-7 px-8 mb-4 flex-col lg:flex-row">
             <div className="flex-1">
               <label
                 className="text-lg font-semibold text-primary"
@@ -69,6 +74,7 @@ const AddBooks = () => {
               <br />
               <input
                 type="text"
+                defaultValue={singleBook?.name}
                 required
                 {...register("name")}
                 placeholder="Enter Book Name"
@@ -86,6 +92,7 @@ const AddBooks = () => {
               <Controller
                 name="bookCategory"
                 control={control}
+                defaultValue={singleBook?.bookCategory}
                 render={({ field }) => (
                   <select
                     {...field}
@@ -103,7 +110,7 @@ const AddBooks = () => {
               />
             </div>
           </div>
-          <div className="flex flex-col lg:flex-row gap-7 px-8 mb-4">
+          <div className="flex gap-7 px-8 mb-4 flex-col lg:flex-row">
             <div className="flex-1">
               <label
                 className="text-lg font-semibold text-primary"
@@ -114,6 +121,7 @@ const AddBooks = () => {
               <br />
               <input
                 type="text"
+                defaultValue={singleBook?.author}
                 required
                 {...register("author")}
                 placeholder="Enter Author Name"
@@ -132,6 +140,7 @@ const AddBooks = () => {
                 type="number"
                 min={0}
                 onWheel={(e) => e.target.blur()}
+                defaultValue={singleBook?.quantity}
                 {...register("quantity")}
                 required
                 placeholder="Enter Book Quantity"
@@ -139,7 +148,7 @@ const AddBooks = () => {
               />
             </div>
           </div>
-          <div className="flex flex-col lg:flex-row gap-7 px-8 mb-4">
+          <div className="flex gap-7 px-8 mb-4 flex-col lg:flex-row">
             <div className="flex-1">
               <label
                 className="text-lg font-semibold text-primary"
@@ -151,6 +160,7 @@ const AddBooks = () => {
               <input
                 required
                 type="text"
+                defaultValue={singleBook?.photo}
                 {...register("photo")}
                 placeholder="Enter Book Cover URL"
                 className="w-full py-3 px-4 my-2 rounded border border-primary focus:outline-none focus:ring focus:ring-blue-500 dark:bg-gray-500 dark:text-white"
@@ -166,6 +176,7 @@ const AddBooks = () => {
               <br />
               <Controller
                 name="rating"
+                defaultValue={singleBook?.rating}
                 control={control}
                 render={({ field }) => (
                   <select
@@ -193,6 +204,7 @@ const AddBooks = () => {
               </label>
               <input
                 required
+                defaultValue={singleBook?.description}
                 type="text"
                 {...register("description")}
                 placeholder="Enter Book Description"
@@ -208,6 +220,7 @@ const AddBooks = () => {
               </label>
               <input
                 required
+                defaultValue={singleBook?.preview}
                 type="text"
                 {...register("preview")}
                 placeholder="Enter Book Preview Text"
@@ -218,9 +231,18 @@ const AddBooks = () => {
           <div className="pb-12 text-white w-1/3 md:w-1/5 mx-auto">
             <input
               type="submit"
-              value="Add Book"
+              value="Update Book"
               className="bg-primary w-full py-3 text-xl md:text-2xl rounded-lg hover:bg-[#1083A7]"
             />
+          </div>
+          <div className="group-hover:text-[#1083A7] flex justify-center">
+            <button
+              onClick={() => navigate(-1)}
+              className="text-primary py-3 px-5 rounded-lg flex items-center gap-2 text-xl"
+            >
+              <BiArrowBack className="text-primary text-xl group-hover:text-[#1083A7]"></BiArrowBack>{" "}
+              Go Back
+            </button>
           </div>
         </form>
       </div>
@@ -229,4 +251,4 @@ const AddBooks = () => {
   );
 };
 
-export default AddBooks;
+export default UpdateBooks;
