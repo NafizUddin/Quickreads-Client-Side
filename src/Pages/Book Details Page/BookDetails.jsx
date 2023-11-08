@@ -1,4 +1,4 @@
-import { Link, useLoaderData } from "react-router-dom";
+import { Link, useLoaderData, useNavigate } from "react-router-dom";
 import Navbar from "../../Components/Main Navbar/Navbar";
 import Footer from "../../Components/Footer/Footer";
 import Rating from "react-rating";
@@ -12,18 +12,17 @@ import "react-datepicker/dist/react-datepicker.css";
 import { useEffect, useState } from "react";
 import useAuth from "../../Custom Hooks/useAuth";
 import useAxiosInterceptorsSecure from "../../Custom Hooks/useAxiosInterceptorsSecure";
-import { useQuery } from "@tanstack/react-query";
-import Loading from "../../Components/Loading Component/Loading";
 import Swal from "sweetalert2";
 
 const BookDetails = () => {
   const singleBook = useLoaderData();
   const [successMsg, setSuccessMsg] = useState("");
-  const { handleSubmit, reset, formState, control, setValue } = useForm();
+  const { handleSubmit, formState, control, setValue } = useForm();
   const { errors } = formState;
   const { user } = useAuth();
   const axiosSecure = useAxiosInterceptorsSecure();
   const [isExists, setIsExists] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     setValue("borrowDate", new Date());
@@ -36,6 +35,13 @@ const BookDetails = () => {
       );
     });
   }, [axiosSecure, singleBook.name]);
+
+  useEffect(() => {
+    if (singleBook?.quantity <= 0) {
+      const buttonElement = document.getElementById("borrow");
+      buttonElement.setAttribute("disabled", true);
+    }
+  }, [singleBook?.quantity]);
 
   const showError = () => {
     Swal.fire("Ooppss!", "You have already borrowed this book", "error");
@@ -60,9 +66,23 @@ const BookDetails = () => {
       category: singleBook?.bookCategory,
     };
 
+    const quantityInNum = parseInt(singleBook.quantity);
+    const updatedQuantity = quantityInNum - 1;
+
+    const updatedQuantityObj = {
+      quantity: updatedQuantity,
+    };
+
     axiosSecure.post("/api/borrowedBooks", borrowInfo).then((res) => {
       if (res.data.insertedId) {
-        setSuccessMsg("You have borrowed this book successfully");
+        axiosSecure
+          .patch(`/api/books/singleBook/${singleBook._id}`, updatedQuantityObj)
+          .then((res) => {
+            if (res.data.modifiedCount > 0) {
+              setSuccessMsg("You have borrowed this book successfully");
+              navigate("/borrowedBooks");
+            }
+          });
       }
     });
   };
@@ -132,6 +152,7 @@ const BookDetails = () => {
                 ) : (
                   <div>
                     <button
+                      id="borrow"
                       onClick={() =>
                         document.getElementById("my_modal_1").showModal()
                       }
@@ -213,6 +234,9 @@ const BookDetails = () => {
                               />
                             </div>
                           </form>
+                          <p className="text-center text-green-600 pt-4">
+                            {successMsg}
+                          </p>
                         </div>
                       </div>
                     </dialog>

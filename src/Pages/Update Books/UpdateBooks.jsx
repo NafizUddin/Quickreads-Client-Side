@@ -24,12 +24,18 @@ const UpdateBooks = () => {
   const handleUpdateBooks = (data) => {
     console.log(data);
 
-    axiosSecure.put(`/api/books/${singleBook._id}`, data).then((res) => {
-      if (res.data.modifiedCount > 0) {
-        Swal.fire("Good job!", "You updated the book successfully", "success");
-        navigate("/allBooks");
-      }
-    });
+    axiosSecure
+      .put(`/api/books/singleBook/${singleBook._id}`, data)
+      .then((res) => {
+        if (res.data.modifiedCount > 0) {
+          Swal.fire(
+            "Good job!",
+            "You updated the book successfully",
+            "success"
+          );
+          navigate("/allBooks");
+        }
+      });
   };
   return (
     <div>
