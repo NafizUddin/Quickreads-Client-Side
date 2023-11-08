@@ -18,7 +18,7 @@ const UpdateBooks = () => {
   }, []);
 
   const axiosSecure = useAxiosInterceptorsSecure();
-  console.log(singleBook);
+
   const { register, control, handleSubmit } = useForm();
 
   const handleUpdateBooks = (data) => {

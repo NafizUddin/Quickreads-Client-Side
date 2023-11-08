@@ -11,6 +11,7 @@ import BorrowedBooks from "../Pages/Borrowed Books/BorrowedBooks";
 import UpdateBooks from "../Pages/Update Books/UpdateBooks";
 import BookCategoryPage from "../Pages/Book Category Page/BookCategoryPage";
 import BookDetails from "../Pages/Book Details Page/BookDetails";
+import ReadBook from "../Pages/Read Book Page/ReadBook";
 
 const MainRoute = createBrowserRouter([
   {
@@ -45,6 +46,16 @@ const MainRoute = createBrowserRouter([
             <BorrowedBooks />
           </PrivateRoute>
         ),
+      },
+      {
+        path: "/readBook/:id",
+        element: (
+          <PrivateRoute>
+            <ReadBook />
+          </PrivateRoute>
+        ),
+        loader: ({ params }) =>
+          fetch(`http://localhost:3000/api/books/singleBook/${params.id}`),
       },
       {
         path: "/bookDetails/:id",

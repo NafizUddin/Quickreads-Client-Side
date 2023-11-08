@@ -5,11 +5,20 @@ import BookCategory from "../../Components/Book Category/BookCategory";
 import Footer from "../../Components/Footer/Footer";
 import Testimonial from "../../Components/Testimonial/Testimonial";
 import WhyChooseUs from "../../Components/Why Choose Us/WhyChooseUs";
+import useAuth from "../../Custom Hooks/useAuth";
+import Loading from "../../Components/Loading Component/Loading";
 
 const HomePage = () => {
+  const { loading } = useAuth();
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
+  if (loading) {
+    return <Loading />;
+  }
+
   return (
     <div>
       <Banner></Banner>

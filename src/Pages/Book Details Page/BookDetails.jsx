@@ -25,6 +25,10 @@ const BookDetails = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  useEffect(() => {
     setValue("borrowDate", new Date());
   }, [setValue]);
 
@@ -243,7 +247,7 @@ const BookDetails = () => {
                   </div>
                 )}
 
-                <Link>
+                <Link to={`/readBook/${singleBook?._id}`}>
                   <button className="px-5 py-3 font-medium text-primary rounded-2xl flex gap-2 items-center text-xl outline outline-primary">
                     Read Book <GiRead className="mt-1 text-lg" />
                   </button>
