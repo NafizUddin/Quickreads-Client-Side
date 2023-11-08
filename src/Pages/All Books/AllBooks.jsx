@@ -37,7 +37,7 @@ const AllBooks = () => {
   const { data: categories } = useQuery({
     queryKey: ["categories"],
     queryFn: async () =>
-      axiosSecure.get("/api/categories").then((data) => data.data),
+      axiosSecure.get("/api/categories?").then((data) => data.data),
   });
   // console.log(categories);
   // console.log(selectedCategory)

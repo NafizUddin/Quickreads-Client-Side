@@ -4,6 +4,9 @@ import useAxiosInterceptorsSecure from "../../Custom Hooks/useAxiosInterceptorsS
 import { useQuery } from "@tanstack/react-query";
 import BooksCardDetailsPage from "../../Components/Books Card For Details Page/BooksCardDetailsPage";
 import Loading from "../../Components/Loading Component/Loading";
+import { FaLocationDot } from "react-icons/fa6";
+import { MdEmail } from "react-icons/md";
+import { BsTelephoneFill } from "react-icons/bs";
 
 const BookCategoryPage = () => {
   const bookCategory = useLoaderData();
@@ -49,7 +52,59 @@ const BookCategoryPage = () => {
             ))}
           </div>
         </div>
-        <div className="xl:col-span-1 mt-4"></div>
+        <div className="xl:col-span-1 mt-4">
+          <div>
+            <h1 className="text-2xl pl-3 text-center pb-5 font-medium">
+              Book category Tags
+            </h1>
+            <div className="grid grid-cols-12 grid-rows-3 gap-3">
+              <div className="col-span-4 rounded-xl text-center py-2 text-white bg-primary">
+                Fantasy
+              </div>
+              <div className="col-span-4 rounded-xl text-center py-2 text-white bg-primary">
+                Mystery
+              </div>
+              <div className="col-span-4 rounded-xl text-center py-2 text-white bg-primary">
+                History
+              </div>
+              <div className="col-span-6 rounded-xl text-center py-2 text-white bg-primary">
+                SciFi
+              </div>
+              <div className="col-span-5 rounded-xl text-center py-2 text-white bg-primary">
+                Romance
+              </div>
+              <div className="col-span-5 rounded-xl text-center py-2 text-white bg-primary">
+                NonFiction
+              </div>
+              <div className="col-span-4 rounded-xl text-center py-2 text-white bg-primary">
+                Dystopia
+              </div>
+            </div>
+            <div className="mt-7 py-5 bg-[#F3F4F6]">
+              <h1 className="text-2xl text-center pb-5 font-medium">
+                Get In Touch
+              </h1>
+              <div className="flex gap-3 items-center pl-4">
+                <div className="text-xl">
+                  <FaLocationDot></FaLocationDot>
+                </div>
+                <p>Honey Business, 24 Fifth street, Los Angeles, USA</p>
+              </div>
+              <div className="flex gap-3 items-center py-4 pl-4">
+                <div className="text-xl">
+                  <MdEmail></MdEmail>
+                </div>
+                <p className="lg:text-sm xl:text-base">quickreads@gmail.com</p>
+              </div>
+              <div className="flex gap-3 items-center pt-1 pb-4 pl-4">
+                <div className="text-xl">
+                  <BsTelephoneFill></BsTelephoneFill>
+                </div>
+                <p>(+01) 123 456 7890</p>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

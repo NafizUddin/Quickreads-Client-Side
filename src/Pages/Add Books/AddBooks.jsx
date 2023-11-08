@@ -6,10 +6,12 @@ import { Controller, useForm } from "react-hook-form";
 import "./addBooks.css";
 import useAxiosInterceptorsSecure from "../../Custom Hooks/useAxiosInterceptorsSecure";
 import { useEffect } from "react";
+import useAuth from "../../Custom Hooks/useAuth";
 
 const AddBooks = () => {
   const { register, control, handleSubmit, reset } = useForm();
   const axiosSecure = useAxiosInterceptorsSecure();
+  const { user } = useAuth();
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -18,7 +20,7 @@ const AddBooks = () => {
   const handleAddBooks = (data) => {
     console.log(data);
 
-    axiosSecure.post("/api/books", data).then((res) => {
+    axiosSecure.post(`/api/books?email=${user?.email}`, data).then((res) => {
       console.log(res.data);
       if (res.data.insertedId) {
         Swal.fire("Good job!", "You added a new book", "success");

@@ -112,21 +112,23 @@ const BookDetails = () => {
           </div>
         </div>
       </div>
-      <div className="h-[450px] relative mb-32">
+      <div className="lg:h-[450px] relative mb-32">
         <img
           src="https://images.unsplash.com/photo-1536965764833-5971e0abed7c?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
           className="absolute inset-0 object-cover object-center w-full h-full rounded-md"
           alt=""
         />
         <div className="relative bg-gray-900 bg-opacity-70 h-full rounded-md">
-          <div className="flex items-center xl:gap-20 h-full w-4/5 mx-auto text-white">
+          <div className="flex flex-col lg:flex-row items-center lg:gap-20 h-full w-4/5 mx-auto text-white py-10 lg:py-0">
             <img
               src={singleBook.photo}
-              className="h-[440px] w-[250px] relative top-16 rounded-md shadow-2xl"
+              className="lg:h-[440px] w-[250px] relative lg:top-16 rounded-md shadow-2xl"
             />
-            <div className="space-y-4">
+            <div className="space-y-4 mt-10 lg:mt-0">
               <p className="text-2xl font-medium">By {singleBook?.author}</p>
-              <h1 className="text-5xl font-semibold">{singleBook?.name}</h1>
+              <h1 className="text-4xl lg:text-5xl font-semibold">
+                {singleBook?.name}
+              </h1>
               <div className="md:text-2xl flex items-center gap-3">
                 <span className="font-medium">Rating: </span>
                 <span className="mt-1">
@@ -148,11 +150,11 @@ const BookDetails = () => {
                 <span className="font-medium">Quantity:</span>{" "}
                 <span>{singleBook?.quantity}</span>
               </p>
-              <div className="flex gap-7">
+              <div className="flex flex-col md:flex-row gap-7">
                 {isExists ? (
                   <button
                     onClick={() => showError()}
-                    className=" px-5 py-3 font-medium bg-primary text-white rounded-2xl flex gap-2 items-center text-xl"
+                    className="px-5 py-3 font-medium bg-primary text-white rounded-2xl flex gap-2 items-center text-xl"
                   >
                     Borrow Book <FiBookOpen className="mt-1 text-lg" />
                   </button>
@@ -163,7 +165,7 @@ const BookDetails = () => {
                       onClick={() =>
                         document.getElementById("my_modal_1").showModal()
                       }
-                      className=" px-5 py-3 font-medium bg-primary text-white rounded-2xl flex gap-2 items-center text-xl"
+                      className="px-5 py-3 font-medium bg-primary text-white rounded-2xl flex gap-2 items-center text-xl"
                     >
                       Borrow Book <FiBookOpen className="mt-1 text-lg" />
                     </button>
