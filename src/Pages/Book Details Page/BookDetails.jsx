@@ -63,9 +63,9 @@ const BookDetails = () => {
     const quantityInNum = parseInt(singleBook.quantity);
     const updatedQuantity = quantityInNum - 1;
 
-    const updatedQuantityObj = {
-      quantity: updatedQuantity,
-    };
+    // const updatedQuantityObj = {
+    //   quantity: updatedQuantity,
+    // };
 
     const borrowInfo = {
       userName: user?.displayName,
@@ -80,8 +80,11 @@ const BookDetails = () => {
     axiosSecure.post("/api/borrowedBooks", borrowInfo).then((res) => {
       if (res.data.insertedId) {
         axiosSecure
-          .patch(`/api/books/singleBook/${singleBook._id}`, updatedQuantityObj)
+          .patch(`/api/books/singleBook/${singleBook.name}`, {
+            quantity: updatedQuantity,
+          })
           .then((res) => {
+            console.log(res);
             if (res.data.modifiedCount > 0) {
               setSuccessMsg("You have borrowed this book successfully");
               navigate("/borrowedBooks");

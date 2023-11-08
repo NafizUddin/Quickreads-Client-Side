@@ -5,14 +5,12 @@ import useAxiosInterceptorsSecure from "../../Custom Hooks/useAxiosInterceptorsS
 import Loading from "../../Components/Loading Component/Loading";
 import useAuth from "../../Custom Hooks/useAuth";
 import Swal from "sweetalert2";
-import { useEffect, useState } from "react";
-import { data } from "autoprefixer";
 
 const BorrowedBooks = () => {
   const { user } = useAuth();
 
   const axiosSecure = useAxiosInterceptorsSecure();
-  const [selectedReturn, setSelectedReturn] = useState(null);
+  // const [updatedQuantity, setUpdatedQuantity] = useState(null);
 
   const {
     data: borrowedBooks,
@@ -26,58 +24,49 @@ const BorrowedBooks = () => {
         .then((data) => data.data),
   });
 
-  const handleReturnBook = async (book) => {
-    try {
-      const res = await axiosSecure.get(
-        `/api/books/bookName/${book?.bookName}`
-      );
-      if (res) {
-        setSelectedReturn(res.data);
-        if (selectedReturn) {
-          const quantityInNum = parseInt(selectedReturn[0]?.quantity);
-          const updatedQuantity = quantityInNum + 1;
+  const handleReturnBook = async (borrowedBooks) => {
+    let updatedQuantity;
 
-          const updatedQuantityObj = {
-            quantity: updatedQuantity,
-          };
-          console.log(updatedQuantityObj);
+    await axiosSecure
+      .get(`/api/books/bookName/${borrowedBooks?.bookName}`)
+      .then((res) => {
+        const quantityInNum = parseInt(res.data?.quantity);
+        // setUpdatedQuantity(quantityInNum);
+        updatedQuantity = quantityInNum + 1;
+      });
 
-          // axiosSecure.delete(`/api/borrowedBooks/${book?._id}`).then((res) => {
-          //   Swal.fire({
-          //     title: "Are you sure?",
-          //     text: "You won't be able to revert this!",
-          //     icon: "warning",
-          //     showCancelButton: true,
-          //     confirmButtonColor: "#3085d6",
-          //     cancelButtonColor: "#d33",
-          //     confirmButtonText: "Yes, return it!",
-          //   }).then((result) => {
-          //     if (result.isConfirmed) {
-          //       if (res.data.deletedCount > 0) {
-          //         axiosSecure
-          //           .patch(
-          //             `/api/books/singleBook/${book?._id}`,
-          //             updatedQuantityObj
-          //           )
-          //           .then((res) => {
-          //             if (res.data.modifiedCount > 0) {
-          //               Swal.fire(
-          //                 "Returned!",
-          //                 `${book?.bookName} has been returned.`,
-          //                 "success"
-          //               );
-          //               refetch();
-          //             }
-          //           });
-          //       }
-          //     }
-          //   });
-          // });
-        }
-      }
-    } catch (error) {
-      console.log(error.message);
-    }
+    await axiosSecure
+      .delete(`/api/borrowedBooks/${borrowedBooks?._id}`)
+      .then((res) => {
+        Swal.fire({
+          title: "Are you sure?",
+          text: "You won't be able to revert this!",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Yes, return it!",
+        }).then(async (result) => {
+          if (result.isConfirmed) {
+            if (res.data.deletedCount > 0) {
+              await axiosSecure
+                .patch(`/api/books/singleBook/${borrowedBooks?.bookName}`, {
+                  quantity: updatedQuantity,
+                })
+                .then((res) => {
+                  if (res.data.modifiedCount > 0) {
+                    Swal.fire(
+                      "Returned!",
+                      "Your book has been returned!",
+                      "success"
+                    );
+                    refetch();
+                  }
+                });
+            }
+          }
+        });
+      });
   };
 
   if (isLoading) {
