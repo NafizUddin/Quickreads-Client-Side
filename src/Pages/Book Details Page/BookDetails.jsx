@@ -18,6 +18,7 @@ import Swal from "sweetalert2";
 
 const BookDetails = () => {
   const singleBook = useLoaderData();
+  const [successMsg, setSuccessMsg] = useState("");
   const { handleSubmit, reset, formState, control, setValue } = useForm();
   const { errors } = formState;
   const { user } = useAuth();
@@ -58,6 +59,12 @@ const BookDetails = () => {
       bookImage: singleBook?.photo,
       category: singleBook?.bookCategory,
     };
+
+    axiosSecure.post("/api/borrowedBooks", borrowInfo).then((res) => {
+      if (res.data.insertedId) {
+        setSuccessMsg("You have borrowed this book successfully");
+      }
+    });
   };
 
   //   _id, name, author, quantity, photo, description, preview, bookCategory, rating
