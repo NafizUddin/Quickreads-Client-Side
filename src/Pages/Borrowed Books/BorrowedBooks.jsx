@@ -8,6 +8,7 @@ import Swal from "sweetalert2";
 
 const BorrowedBooks = () => {
   const { user } = useAuth();
+  // console.log(user.email);
 
   const axiosSecure = useAxiosInterceptorsSecure();
   // const [updatedQuantity, setUpdatedQuantity] = useState(null);
@@ -23,6 +24,8 @@ const BorrowedBooks = () => {
         .get(`/api/borrowedBooks?email=${user?.email}`)
         .then((data) => data.data),
   });
+
+  // console.log(borrowedBooks);
 
   const handleReturnBook = async (borrowedBooks) => {
     let updatedQuantity;
@@ -60,6 +63,7 @@ const BorrowedBooks = () => {
                       "Your book has been returned!",
                       "success"
                     );
+                    window.location.reload();
                     refetch();
                   }
                 });
