@@ -83,13 +83,13 @@ const BorrowedBooks = () => {
         />
         <div className="relative bg-gray-900 bg-opacity-60 h-full rounded-md">
           <div className="flex items-center justify-center h-full">
-            <h1 className="text-white text-5xl md:text-6xl font-bold">
+            <h1 className="text-white text-5xl md:text-6xl font-bold text-center">
               Borrowed Books
             </h1>
           </div>
         </div>
       </div>
-      <div className="overflow-x-auto my-8 pb-20 border-gray-300 border-2 rounded-lg shadow hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800">
+      <div className="overflow-x-auto my-8 pb-20 border-gray-300 border-2 rounded-lg shadow hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 mx-5 xl:mx-0">
         <table className="table">
           {/* head */}
           <thead>
