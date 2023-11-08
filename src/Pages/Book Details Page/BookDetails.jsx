@@ -9,11 +9,12 @@ import { GiRead } from "react-icons/gi";
 import { Controller, useForm } from "react-hook-form";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import useAuth from "../../Custom Hooks/useAuth";
 import useAxiosInterceptorsSecure from "../../Custom Hooks/useAxiosInterceptorsSecure";
 import { useQuery } from "@tanstack/react-query";
 import Loading from "../../Components/Loading Component/Loading";
+import Swal from "sweetalert2";
 
 const BookDetails = () => {
   const singleBook = useLoaderData();
@@ -21,31 +22,32 @@ const BookDetails = () => {
   const { errors } = formState;
   const { user } = useAuth();
   const axiosSecure = useAxiosInterceptorsSecure();
-
-  const { data: isExists, isLoading } = useQuery({
-    queryKey: ["isExists", singleBook._id],
-    queryFn: async () => {
-      axiosSecure.get("/api/borrowedBooks").then((res) => {
-        return res.data?.find((book) => book._id === singleBook._id);
-      });
-    },
-  });
-
-  if (isLoading) {
-    return <Loading />;
-  }
+  const [isExists, setIsExists] = useState(null);
 
   useEffect(() => {
     setValue("borrowDate", new Date());
   }, [setValue]);
 
+  useEffect(() => {
+    axiosSecure.get("/api/borrowedBooks").then((res) => {
+      setIsExists(
+        res?.data?.find((book) => book?.bookName === singleBook?.name)
+      );
+    });
+  }, [axiosSecure, singleBook.name]);
+
+  const showError = () => {
+    Swal.fire("Ooppss!", "You have already borrowed this book", "error");
+  };
+
   const handleBorrowInformation = (data) => {
+    // console.log(isExists);
     // reset({ returnDate: null });
     const borrowDate = data?.borrowDate?.toString();
-    const newBorrowDate = borrowDate.slice(3, 15);
+    const newBorrowDate = borrowDate.slice(4, 15);
 
     const returnDate = data?.returnDate?.toString();
-    const newReturnDate = returnDate.slice(3, 15);
+    const newReturnDate = returnDate.slice(4, 15);
 
     const borrowInfo = {
       userName: user?.displayName,
@@ -56,8 +58,6 @@ const BookDetails = () => {
       bookImage: singleBook?.photo,
       category: singleBook?.bookCategory,
     };
-
-    console.log(borrowInfo);
   };
 
   //   _id, name, author, quantity, photo, description, preview, bookCategory, rating
@@ -115,91 +115,103 @@ const BookDetails = () => {
                 <span>{singleBook?.quantity}</span>
               </p>
               <div className="flex gap-7">
-                <button
-                  onClick={() =>
-                    document.getElementById("my_modal_1").showModal()
-                  }
-                  className="px-5 py-3 font-medium bg-primary text-white rounded-2xl flex gap-2 items-center text-xl"
-                >
-                  Borrow Book <FiBookOpen className="mt-1 text-lg" />
-                </button>
-                <dialog id="my_modal_1" className="modal">
-                  <div className="modal-box max-w-2xl h-[500px]">
-                    <form method="dialog">
-                      {/* if there is a button in form, it will close the modal */}
-                      <button className="bg-primary btn-circle  absolute right-3 top-3">
-                        ✕
-                      </button>
-                    </form>
-                    <div className="flex flex-col justify-center items-center text-gray-900 dark:text-white">
-                      <h3 className="font-bold text-3xl mt-5">
-                        📚 Book Borrow Information 📚
-                      </h3>
-                      <form
-                        onSubmit={handleSubmit(handleBorrowInformation)}
-                        className="space-y-4 md:space-y-6 mt-7"
-                        noValidate
-                        method="dialog"
-                      >
-                        <div className="flex gap-8 items-center">
-                          <label
-                            htmlFor="borrowDate"
-                            className="block mb-2 text-xl font-semibold dark:text-primary text-gray-900"
+                {isExists ? (
+                  <button
+                    onClick={() => showError()}
+                    className=" px-5 py-3 font-medium bg-primary text-white rounded-2xl flex gap-2 items-center text-xl"
+                  >
+                    Borrow Book <FiBookOpen className="mt-1 text-lg" />
+                  </button>
+                ) : (
+                  <div>
+                    <button
+                      onClick={() =>
+                        document.getElementById("my_modal_1").showModal()
+                      }
+                      className=" px-5 py-3 font-medium bg-primary text-white rounded-2xl flex gap-2 items-center text-xl"
+                    >
+                      Borrow Book <FiBookOpen className="mt-1 text-lg" />
+                    </button>
+                    <dialog id="my_modal_1" className="modal">
+                      <div className="modal-box max-w-2xl h-[500px]">
+                        <form method="dialog">
+                          {/* if there is a button in form, it will close the modal */}
+                          <button className="bg-primary btn-circle  absolute right-3 top-3">
+                            ✕
+                          </button>
+                        </form>
+                        <div className="flex flex-col justify-center items-center text-gray-900 dark:text-white">
+                          <h3 className="font-bold text-3xl mt-5">
+                            📚 Book Borrow Information 📚
+                          </h3>
+                          <form
+                            onSubmit={handleSubmit(handleBorrowInformation)}
+                            className="space-y-4 md:space-y-6 mt-7"
+                            noValidate
+                            method="dialog"
                           >
-                            Borrow Date
-                          </label>
+                            <div className="flex gap-8 items-center">
+                              <label
+                                htmlFor="borrowDate"
+                                className="block mb-2 text-xl font-semibold dark:text-primary text-gray-900"
+                              >
+                                Borrow Date
+                              </label>
 
-                          <Controller
-                            name="borrowDate"
-                            control={control}
-                            render={({ field }) => {
-                              return (
-                                <DatePicker
-                                  selected={field.value}
-                                  onChange={field.onChange}
-                                  dateFormat="dd-MM-yyyy"
-                                  className="bg-[#F3F3F3] text-gray-900 sm:text-sm rounded-lg border border-primary focus:outline-none focus:ring focus:ring-blue-500 block p-3 dark:bg-gray-500 dark:text-white"
-                                />
-                              );
-                            }}
-                          />
-
-                          <p className="mt-2 text-sm text-red-600 font-medium">
-                            {errors?.borrowDate?.message}
-                          </p>
-                        </div>
-                        <div className="flex gap-8 items-center">
-                          <label
-                            htmlFor="borrowDate"
-                            className="block mb-2 text-xl font-semibold dark:text-primary text-gray-900"
-                          >
-                            Return Date
-                          </label>
-                          <Controller
-                            name="returnDate"
-                            control={control}
-                            render={({ field }) => (
-                              <DatePicker
-                                selected={field.value}
-                                onChange={(date) => field.onChange(date)}
-                                dateFormat="dd-MM-yyyy"
-                                className="bg-[#F3F3F3] text-gray-900 sm:text-sm rounded-lg border border-primary focus:outline-none focus:ring focus:ring-blue-500 block p-3 dark:bg-gray-500 dark:text-white ml-1"
-                                placeholderText="Enter Return Date"
+                              <Controller
+                                name="borrowDate"
+                                control={control}
+                                render={({ field }) => {
+                                  return (
+                                    <DatePicker
+                                      selected={field.value}
+                                      onChange={field.onChange}
+                                      dateFormat="dd-MM-yyyy"
+                                      className="bg-[#F3F3F3] text-gray-900 sm:text-sm rounded-lg border border-primary focus:outline-none focus:ring focus:ring-blue-500 block p-3 dark:bg-gray-500 dark:text-white"
+                                    />
+                                  );
+                                }}
                               />
-                            )}
-                          />
+
+                              <p className="mt-2 text-sm text-red-600 font-medium">
+                                {errors?.borrowDate?.message}
+                              </p>
+                            </div>
+                            <div className="flex gap-8 items-center">
+                              <label
+                                htmlFor="borrowDate"
+                                className="block mb-2 text-xl font-semibold dark:text-primary text-gray-900"
+                              >
+                                Return Date
+                              </label>
+                              <Controller
+                                name="returnDate"
+                                control={control}
+                                render={({ field }) => (
+                                  <DatePicker
+                                    selected={field.value}
+                                    onChange={(date) => field.onChange(date)}
+                                    dateFormat="dd-MM-yyyy"
+                                    className="bg-[#F3F3F3] text-gray-900 sm:text-sm rounded-lg border border-primary focus:outline-none focus:ring focus:ring-blue-500 block p-3 dark:bg-gray-500 dark:text-white ml-1"
+                                    placeholderText="Enter Return Date"
+                                  />
+                                )}
+                              />
+                            </div>
+                            <div className="flex justify-center pt-4">
+                              <input
+                                type="submit"
+                                value="Submit"
+                                className="cursor-pointer px-5 py-3 font-medium bg-primary text-white rounded-2xl flex gap-2 items-center text-xl"
+                              />
+                            </div>
+                          </form>
                         </div>
-                        <div className="flex justify-center pt-4">
-                          <input
-                            type="submit"
-                            value="Submit"
-                            className="cursor-pointer px-5 py-3 font-medium bg-primary text-white rounded-2xl flex gap-2 items-center text-xl"
-                          />
-                        </div>
-                      </form>
-                    </div>
+                      </div>
+                    </dialog>
                   </div>
-                </dialog>
+                )}
+
                 <Link>
                   <button className="px-5 py-3 font-medium text-primary rounded-2xl flex gap-2 items-center text-xl outline outline-primary">
                     Read Book <GiRead className="mt-1 text-lg" />
