@@ -1,7 +1,88 @@
+import { useQuery } from "@tanstack/react-query";
 import Footer from "../../Components/Footer/Footer";
 import Navbar from "../../Components/Main Navbar/Navbar";
+import useAxiosInterceptorsSecure from "../../Custom Hooks/useAxiosInterceptorsSecure";
+import Loading from "../../Components/Loading Component/Loading";
+import useAuth from "../../Custom Hooks/useAuth";
+import Swal from "sweetalert2";
+import { useEffect, useState } from "react";
+import { data } from "autoprefixer";
 
 const BorrowedBooks = () => {
+  const { user } = useAuth();
+
+  const axiosSecure = useAxiosInterceptorsSecure();
+  const [selectedReturn, setSelectedReturn] = useState(null);
+
+  const {
+    data: borrowedBooks,
+    isLoading,
+    refetch,
+  } = useQuery({
+    queryKey: ["borrow"],
+    queryFn: async () =>
+      axiosSecure
+        .get(`/api/borrowedBooks?email=${user?.email}`)
+        .then((data) => data.data),
+  });
+
+  const handleReturnBook = async (book) => {
+    try {
+      const res = await axiosSecure.get(
+        `/api/books/bookName/${book?.bookName}`
+      );
+      if (res) {
+        setSelectedReturn(res.data);
+        if (selectedReturn) {
+          const quantityInNum = parseInt(selectedReturn[0]?.quantity);
+          const updatedQuantity = quantityInNum + 1;
+
+          const updatedQuantityObj = {
+            quantity: updatedQuantity,
+          };
+          console.log(updatedQuantityObj);
+
+          // axiosSecure.delete(`/api/borrowedBooks/${book?._id}`).then((res) => {
+          //   Swal.fire({
+          //     title: "Are you sure?",
+          //     text: "You won't be able to revert this!",
+          //     icon: "warning",
+          //     showCancelButton: true,
+          //     confirmButtonColor: "#3085d6",
+          //     cancelButtonColor: "#d33",
+          //     confirmButtonText: "Yes, return it!",
+          //   }).then((result) => {
+          //     if (result.isConfirmed) {
+          //       if (res.data.deletedCount > 0) {
+          //         axiosSecure
+          //           .patch(
+          //             `/api/books/singleBook/${book?._id}`,
+          //             updatedQuantityObj
+          //           )
+          //           .then((res) => {
+          //             if (res.data.modifiedCount > 0) {
+          //               Swal.fire(
+          //                 "Returned!",
+          //                 `${book?.bookName} has been returned.`,
+          //                 "success"
+          //               );
+          //               refetch();
+          //             }
+          //           });
+          //       }
+          //     }
+          //   });
+          // });
+        }
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+  if (isLoading) {
+    return <Loading></Loading>;
+  }
   return (
     <div>
       <Navbar />
@@ -18,6 +99,69 @@ const BorrowedBooks = () => {
             </h1>
           </div>
         </div>
+      </div>
+      <div className="overflow-x-auto my-8 pb-20 border-gray-300 border-2 rounded-lg shadow hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800">
+        <table className="table">
+          {/* head */}
+          <thead>
+            <tr>
+              <th>
+                <h1 className="md:text-xl">Sl No.</h1>
+              </th>
+              <th>
+                <h1 className="md:text-xl">Book Cover</h1>
+              </th>
+              <th>
+                <h1 className="md:text-xl">Book Name</h1>
+              </th>
+              <th>
+                <h1 className="md:text-xl">Borrow Date</h1>
+              </th>
+              <th>
+                <h1 className="md:text-xl">Return Date</h1>
+              </th>
+              <th>
+                <h1 className="md:text-xl">Action</h1>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {/* row 1 */}
+            {borrowedBooks?.map((singleBook, index) => (
+              <tr key={singleBook._id}>
+                <th>
+                  <span className="text-xl">{index + 1}</span>
+                </th>
+                <td>
+                  <img src={singleBook?.bookImage} className="w-20" />
+                </td>
+                <td>
+                  <h1 className="md:text-xl font-semibold">
+                    {singleBook?.bookName}
+                  </h1>
+                </td>
+                <td>
+                  <h1 className="md:text-xl font-semibold">
+                    {singleBook?.borrowDate}
+                  </h1>
+                </td>
+                <td>
+                  <h1 className="md:text-xl font-semibold">
+                    {singleBook?.returnDate}
+                  </h1>
+                </td>
+                <td>
+                  <button
+                    onClick={() => handleReturnBook(singleBook)}
+                    className="px-4 py-2 rounded-full bg-primary text-white  text-xs md:text-base"
+                  >
+                    Return
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
       <Footer />
     </div>

@@ -13,6 +13,7 @@ const AllBooks = () => {
   }, []);
   const axiosSecure = useAxiosInterceptorsSecure();
   const [selectedCategory, setSelectedCategory] = useState("");
+  const [quantity, setQuantity] = useState(null);
 
   // const getAllBooks = async () => {
   //   const res = await axiosSecure.get("/api/books");
@@ -46,9 +47,9 @@ const AllBooks = () => {
     isError,
     error,
   } = useQuery({
-    queryKey: ["allBooks", selectedCategory],
+    queryKey: ["allBooks", selectedCategory, quantity],
     queryFn: async () =>
-      axiosSecure.get("/api/books").then(
+      axiosSecure.get(`/api/books?quantity=${quantity}`).then(
         (data) => {
           if (selectedCategory.length > 0) {
             return data.data.filter(
@@ -62,6 +63,7 @@ const AllBooks = () => {
       ),
   });
 
+  console.log(quantity);
   if (isLoading) {
     return <Loading />;
   }
@@ -94,7 +96,10 @@ const AllBooks = () => {
             <span className="text-2xl font-semibold">Filter By</span>
           </div>
           <div className="m-6 flex justify-center xl:block">
-            <button className="xl:w-full w-1/2 py-3 lg:w-1/3 bg-primary text-white rounded-md text-xl hover:bg-[#1083A7]">
+            <button
+              onClick={() => setQuantity(0)}
+              className="xl:w-full w-1/2 py-3 lg:w-1/3 bg-primary text-white rounded-md text-xl hover:bg-[#1083A7]"
+            >
               Quantity
             </button>
           </div>
@@ -104,7 +109,10 @@ const AllBooks = () => {
               <span className="text-2xl font-semibold">Filter By Category</span>
             </div>
             <li
-              onClick={() => setSelectedCategory("")}
+              onClick={() => {
+                setSelectedCategory("");
+                setQuantity(null);
+              }}
               className="mx-7 text-3xl hover:text-primary dark:text-white dark:hover:text-primary cursor-pointer pt-2 md:pl-10 lg:pl-24 xl:pl-0"
             >
               All
@@ -113,7 +121,10 @@ const AllBooks = () => {
               {categories?.map((category) => (
                 <div key={category._id} className="my-5">
                   <li
-                    onClick={() => setSelectedCategory(category.category)}
+                    onClick={() => {
+                      setSelectedCategory(category.category);
+                      setQuantity(null);
+                    }}
                     className="mx-7 text-3xl hover:text-primary dark:text-white dark:hover:text-primary cursor-pointer md:pl-10 lg:pl-24 xl:pl-0"
                   >
                     {category.category}

@@ -60,6 +60,13 @@ const BookDetails = () => {
     const returnDate = data?.returnDate?.toString();
     const newReturnDate = returnDate.slice(4, 15);
 
+    const quantityInNum = parseInt(singleBook.quantity);
+    const updatedQuantity = quantityInNum - 1;
+
+    const updatedQuantityObj = {
+      quantity: updatedQuantity,
+    };
+
     const borrowInfo = {
       userName: user?.displayName,
       userEmail: user?.email,
@@ -68,13 +75,6 @@ const BookDetails = () => {
       bookName: singleBook?.name,
       bookImage: singleBook?.photo,
       category: singleBook?.bookCategory,
-    };
-
-    const quantityInNum = parseInt(singleBook.quantity);
-    const updatedQuantity = quantityInNum - 1;
-
-    const updatedQuantityObj = {
-      quantity: updatedQuantity,
     };
 
     axiosSecure.post("/api/borrowedBooks", borrowInfo).then((res) => {

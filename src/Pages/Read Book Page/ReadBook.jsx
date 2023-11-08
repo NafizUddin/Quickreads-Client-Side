@@ -4,25 +4,11 @@ import Navbar from "../../Components/Main Navbar/Navbar";
 import { useEffect } from "react";
 import generatePDF, { Resolution, Margin } from "react-to-pdf";
 
-const options = {
-  // default is `save`
-  method: "open",
-  // default is Resolution.MEDIUM = 3, which should be enough, higher values
-  // increases the image quality but also the size of the PDF, so be careful
-  // using values higher than 10 when having multiple pages generated, it
-  // might cause the page to crash or hang.
-  resolution: Resolution.HIGH,
-  page: {
-    // margin is in MM, default is Margin.NONE = 0
-    margin: Margin.SMALL,
-  },
-};
-
 const getTargetElement = () => document.getElementById("content-id");
 
 const ReadBook = () => {
   const selectedBook = useLoaderData();
-  const { toPDF, targetRef } = usePDF({
+  const { targetRef } = usePDF({
     filename: `${selectedBook?.name}.pdf`,
   });
 
@@ -60,7 +46,7 @@ const ReadBook = () => {
         <h1 className="text-center text-4xl my-5">
           &quot;{selectedBook?.name}&quot;
         </h1>
-        <p ref={targetRef} className="max-w-3xl text-center xl:mx-auto">
+        <p ref={targetRef} className="text-center mx-6 pb-4">
           {selectedBook?.preview}
         </p>
       </div>
