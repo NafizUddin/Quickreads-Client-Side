@@ -2,9 +2,9 @@
 
 This is the 11th assignment of Complete Web Development Course of Programming Hero.
 
-## [ Live Server Link](https://quickreads-library-a11.netlify.app/)
+## [ Live Server Link](https://quickreads-library-a11-react.netlify.app/)
 
-Click here to see the live server: [https://quickreads-library-a11.netlify.app/](https://quickreads-library-a11.netlify.app/)
+Click here to see the live server: [https://quickreads-library-a11-react.netlify.app/](https://quickreads-library-a11-react.netlify.app/)
 
 ## [Some Project Features](https://github.com/Porgramming-Hero-web-course/b8a11-client-side-NafizUddin)
 
