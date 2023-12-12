@@ -25,3 +25,5 @@ There are some features in this project. Here I have provided some of them:
   Those who are first visitors to the website, they have to register first to see all the contents of the website. They will find an option to create account in the bottom of login form. By clicking that option, they will go to `Sign Up` page. Once they get signed up, their name and photo will be shown in the navbar.
 
 - Filter Books - There is a `Filter` button in all books page by which we can filter books by quantity. We can also filter books by category by clicking the category.
+
+- Read Book and Download PDF - There is a button named `Read Book` in Book Details page by which a user can read some part of the book. In that page, A user will find some content of the book and also a `Download PDF` button in the bottom of the page. By clicking the button, the content of the book will be downloaded.
