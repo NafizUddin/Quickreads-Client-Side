@@ -12,6 +12,7 @@ import UpdateBooks from "../Pages/Update Books/UpdateBooks";
 import BookCategoryPage from "../Pages/Book Category Page/BookCategoryPage";
 import BookDetails from "../Pages/Book Details Page/BookDetails";
 import ReadBook from "../Pages/Read Book Page/ReadBook";
+import LibrarianRoute from "./LibrarianRoute";
 
 const MainRoute = createBrowserRouter([
   {
@@ -27,7 +28,9 @@ const MainRoute = createBrowserRouter([
         path: "/addBooks",
         element: (
           <PrivateRoute>
-            <AddBooks />
+            <LibrarianRoute>
+              <AddBooks />
+            </LibrarianRoute>
           </PrivateRoute>
         ),
       },
@@ -35,7 +38,9 @@ const MainRoute = createBrowserRouter([
         path: "/allBooks",
         element: (
           <PrivateRoute>
-            <AllBooks />
+            <LibrarianRoute>
+              <AllBooks />
+            </LibrarianRoute>
           </PrivateRoute>
         ),
       },
@@ -55,9 +60,7 @@ const MainRoute = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(
-            `https://eleventh-assignment-server-side.vercel.app/api/books/singleBook/${params.id}`
-          ),
+          fetch(`http://localhost:3000/api/books/singleBook/${params.id}`),
       },
       {
         path: "/bookDetails/:id",
@@ -67,21 +70,19 @@ const MainRoute = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(
-            `https://eleventh-assignment-server-side.vercel.app/api/books/singleBook/${params.id}`
-          ),
+          fetch(`http://localhost:3000/api/books/singleBook/${params.id}`),
       },
       {
         path: "/updateBooks/:id",
         element: (
           <PrivateRoute>
-            <UpdateBooks />
+            <LibrarianRoute>
+              <UpdateBooks />
+            </LibrarianRoute>
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(
-            `https://eleventh-assignment-server-side.vercel.app/api/books/singleBook/${params.id}`
-          ),
+          fetch(`http://localhost:3000/api/books/singleBook/${params.id}`),
       },
       {
         path: "/categoryDetails/:category",
@@ -91,9 +92,7 @@ const MainRoute = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(
-            `https://eleventh-assignment-server-side.vercel.app/api/categories/${params.category}`
-          ),
+          fetch(`http://localhost:3000/api/categories/${params.category}`),
       },
       {
         path: "/login",

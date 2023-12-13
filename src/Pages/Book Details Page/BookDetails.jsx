@@ -33,12 +33,12 @@ const BookDetails = () => {
   }, [setValue]);
 
   useEffect(() => {
-    axiosSecure.get("/api/borrowedBooks").then((res) => {
+    axiosSecure.get(`/api/borrowedBooks?email=${user?.email}`).then((res) => {
       setIsExists(
         res?.data?.find((book) => book?.bookName === singleBook?.name)
       );
     });
-  }, [axiosSecure, singleBook.name]);
+  }, [axiosSecure, singleBook.name, user?.email]);
 
   useEffect(() => {
     if (singleBook?.quantity <= 0) {

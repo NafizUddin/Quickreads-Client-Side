@@ -3,9 +3,11 @@ import useAuth from "../../Custom Hooks/useAuth";
 import { useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import logo from "../../assets/Images/Logos/LightLogo-removebg-preview.png";
+import useUserDetails from "../../Custom Hooks/useUserDetails";
 
 const Navbar = () => {
   const { user, logOut } = useAuth();
+  const { loadedUser } = useUserDetails();
   const [theme, setTheme] = useState(
     localStorage.getItem("theme") ? localStorage.getItem("theme") : "light"
   );
@@ -34,6 +36,8 @@ const Navbar = () => {
     }
   };
 
+  console.log(loadedUser);
+
   const links = (
     <>
       <li>
@@ -50,34 +54,40 @@ const Navbar = () => {
           Home
         </NavLink>
       </li>
-      <li>
-        <NavLink
-          to="/addBooks"
-          className={({ isActive, isPending }) =>
-            isActive
-              ? "bg-primary px-3 py-2 text-white rounded-md"
-              : isPending
-              ? "pending"
-              : ""
-          }
-        >
-          Add Books
-        </NavLink>
-      </li>
-      <li>
-        <NavLink
-          to="/allBooks"
-          className={({ isActive, isPending }) =>
-            isActive
-              ? "bg-primary px-3 py-2 text-white rounded-md"
-              : isPending
-              ? "pending"
-              : ""
-          }
-        >
-          All Books
-        </NavLink>
-      </li>
+      {loadedUser?.role === "librarian" && (
+        <li>
+          <NavLink
+            to="/addBooks"
+            className={({ isActive, isPending }) =>
+              isActive
+                ? "bg-primary px-3 py-2 text-white rounded-md"
+                : isPending
+                ? "pending"
+                : ""
+            }
+          >
+            Add Books
+          </NavLink>
+        </li>
+      )}
+
+      {loadedUser?.role === "librarian" && (
+        <li>
+          <NavLink
+            to="/allBooks"
+            className={({ isActive, isPending }) =>
+              isActive
+                ? "bg-primary px-3 py-2 text-white rounded-md"
+                : isPending
+                ? "pending"
+                : ""
+            }
+          >
+            All Books
+          </NavLink>
+        </li>
+      )}
+
       <li>
         <NavLink
           to="/borrowedBooks"

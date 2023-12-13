@@ -30,6 +30,7 @@ const RegisterForm = () => {
             email: data.userEmail,
             name: data.userName,
             firebaseId: res.user.uid,
+            role: "user",
           };
 
           axiosSecure.post("/api/users", user).then((res) => {

@@ -93,7 +93,7 @@ const BorrowedBooks = () => {
           </div>
         </div>
       </div>
-      <div className="overflow-x-auto my-8 pb-20 border-gray-300 border-2 rounded-lg shadow hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 mx-5 xl:mx-0">
+      <div className="overflow-x-auto my-8 pb-20 border-gray-300 border-2 rounded-lg shadow hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 mx-6 xl:mx-0">
         <table className="table">
           {/* head */}
           <thead>
