@@ -1,6 +1,6 @@
 # [Quick Reads](https://github.com/Porgramming-Hero-web-course/b8a11-client-side-NafizUddin) <img alt="Static Badge" src="https://img.shields.io/badge/Last_commit-08/_11/_2023-green">
 
-This is the 11th assignment of Complete Web Development Course of Programming Hero.
+This is the 11th assignment of Complete Web Development Course of Programming Hero and it is about Library Book Management.
 
 ## [ Live Server Link](https://quickreads-library-a11-react.netlify.app/)
 
@@ -8,6 +8,26 @@ Click here to see the live server: [https://quickreads-library-a11-react.netlify
 
 - Librarian Email - nafiz@gmail.com
 - Librarian Password - 123456A$
+
+## [ Server Side Repository](https://github.com/NafizUddin/Quickreads-Server-Side)
+Click here to see the Server Side Repository: [https://github.com/NafizUddin/Quickreads-Server-Side](https://github.com/NafizUddin/Quickreads-Server-Side)
+
+## **In this Assignment,I Have Used:**
+
+1. React Router
+2. Tanstack Query
+3. React Tailwind CSS
+4. React Hook Form
+5. React AOS Animation
+6. Axios
+7. React Rating
+8. SweetAlert 2
+9. React Date Picker
+10. Swiper Js
+11. React to PDF
+12. React Type Animation
+13. Firebase
+14. MongoDB
 
 ## [Some Project Features](https://github.com/Porgramming-Hero-web-course/b8a11-client-side-NafizUddin)
 
