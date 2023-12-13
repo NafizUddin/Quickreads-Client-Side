@@ -60,7 +60,9 @@ const MainRoute = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:3000/api/books/singleBook/${params.id}`),
+          fetch(
+            `https://eleventh-assignment-server-side.vercel.app/api/books/singleBook/${params.id}`
+          ),
       },
       {
         path: "/bookDetails/:id",
@@ -70,7 +72,9 @@ const MainRoute = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:3000/api/books/singleBook/${params.id}`),
+          fetch(
+            `https://eleventh-assignment-server-side.vercel.app/api/books/singleBook/${params.id}`
+          ),
       },
       {
         path: "/updateBooks/:id",
@@ -82,7 +86,9 @@ const MainRoute = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:3000/api/books/singleBook/${params.id}`),
+          fetch(
+            `https://eleventh-assignment-server-side.vercel.app/api/books/singleBook/${params.id}`
+          ),
       },
       {
         path: "/categoryDetails/:category",
@@ -92,7 +98,9 @@ const MainRoute = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:3000/api/categories/${params.category}`),
+          fetch(
+            `https://eleventh-assignment-server-side.vercel.app/api/categories/${params.category}`
+          ),
       },
       {
         path: "/login",
