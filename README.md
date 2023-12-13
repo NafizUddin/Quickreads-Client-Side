@@ -6,13 +6,16 @@ This is the 11th assignment of Complete Web Development Course of Programming He
 
 Click here to see the live server: [https://quickreads-library-a11-react.netlify.app/](https://quickreads-library-a11-react.netlify.app/)
 
+- Librarian Email - nafiz@gmail.com
+- Librarian Password - 123456A$
+
 ## [Some Project Features](https://github.com/Porgramming-Hero-web-course/b8a11-client-side-NafizUddin)
 
 There are some features in this project. Here I have provided some of them:
 
 - Dark/Light Theme Toggle - There is a button in the top right corner which enables the toggle between light and dark mode. This feature is implemented on the whole website.
 
-- Add Books to Database - There is a `Add items` route and in that route, we will get a form to add book data in the database. This form contains the information of various kinds of books.
+- Add Books to Database - There is a `Add Books` route and in that route, we will get a form to add book data in the database. This form contains the information of various kinds of books.
 
 - Borrow Book - There is a button named `Borrow Book` in Book details page which adds the functionality of adding particular Book to the Borrow Book Page. If the book is already borrowed, then it shows a error message. If it's not been borrowed yet, then it will pop up a dialog form and the user has to provide input borrow date and return date. Then the user can borrow the book.
 
@@ -27,3 +30,5 @@ There are some features in this project. Here I have provided some of them:
 - Filter Books - There is a `Filter` button in all books page by which we can filter books by quantity. We can also filter books by category by clicking the category.
 
 - Read Book and Download PDF - There is a button named `Read Book` in Book Details page by which a user can read some part of the book. In that page, A user will find some content of the book and also a `Download PDF` button in the bottom of the page. By clicking the button, the content of the book will be downloaded.
+
+- Librarian Role - There is a `Librarian` role in this website who can navigate to `All Books`, `Add Books` and `Update Book` details. But a normal user not having the `Librarian` role can't navigate to these routes.
